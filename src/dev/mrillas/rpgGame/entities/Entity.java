@@ -22,7 +22,6 @@ public abstract class Entity {
 		this.x = x;
 		this.y = y;
 		this.width = width;
-                //hola
 		this.height = height;
 		this.health = DEFAULT_HEALTH;
 		this.name = name;
