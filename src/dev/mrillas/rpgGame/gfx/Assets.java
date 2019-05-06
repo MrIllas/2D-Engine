@@ -25,7 +25,6 @@ public class Assets {
 		SpriteSheet guiSheet = new SpriteSheet(ImageLoader.loadImage("/gui/UI_SF_01.png"));
 		SpriteSheet potionSheet = new SpriteSheet(ImageLoader.loadImage("/textures/witchtiles_3.png"));
 		SpriteSheet inventoryScreenSheet = new SpriteSheet(ImageLoader.loadImage("/gui/inventoryScreen.png"));
-		SpriteSheet destructObjSheet = new SpriteSheet(ImageLoader.loadImage("/textures/desObjects.png"));
 		
 		//ITEMS
 		itm_redPotion = potionSheet.crop(297, 102, 26, 35);
