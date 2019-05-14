@@ -17,7 +17,12 @@ public class Assets {
     
     public static BufferedImage[] ent_box;
     public static BufferedImage inventoryScreen;
-
+    
+    //
+    
+    public static BufferedImage floorStone1, floorStone2, floorStone3, floorStone4, floorStone5, floorStone6, floorStone7, floorStone8, floorStone9;
+    public static BufferedImage topColumn, midColumn, botColumn;
+    
     public static void init() {
         font48 = FontLoader.loadFont("res/fonts/slkscr.ttf", 48);
         font28 = FontLoader.loadFont("res/fonts/slkscr.ttf", 28);
@@ -113,5 +118,20 @@ public class Assets {
         wall01 = sheet.crop(0, 16, width, height);
         wall02 = sheet.crop(16, 16, width, height);
         wall03 = sheet.crop(32, 16, width, height);
+        
+        //
+        floorStone1 = sheet.crop(0, 96, width, height);
+        floorStone2 = sheet.crop(16, 96, width, height);
+        floorStone3 = sheet.crop(32, 96, width, height);
+        floorStone4 = sheet.crop(0, 112, width, height);
+        floorStone5 = sheet.crop(16, 112, width, height);
+        floorStone6 = sheet.crop(32, 112, width, height);
+        floorStone7 = sheet.crop(0, 128, width, height);
+        floorStone8 = sheet.crop(16, 128, width, height);
+        floorStone9 = sheet.crop(32, 128, width, height);
+        
+        topColumn = sheet.crop(96, 48, width, height);
+        midColumn = sheet.crop(96, 64, width, height);
+        botColumn = sheet.crop(96, 80, width, height);
     }
 }
