@@ -12,7 +12,7 @@ public class Assets {
     public static BufferedImage dungeonFloor, box, darkZone, wall01, wall02, wall03;
     public static BufferedImage itm_redPotion, itm_bluePotion;
     public static BufferedImage[] player_down, player_up, player_right, player_left;
-    public static BufferedImage[] btn_start, bg_start_menu;
+    public static BufferedImage[] btn_start, bg_start_menu, theTitle;
     
     public static BufferedImage[] ent_box;
     public static BufferedImage inventoryScreen;
@@ -32,6 +32,13 @@ public class Assets {
         SpriteSheet btn_longBlue = new SpriteSheet(ImageLoader.loadImage("/gui/buttonLong_blue.png"));
         SpriteSheet btn_longBlue2 = new SpriteSheet(ImageLoader.loadImage("/gui/buttonLong_blue_pressed.png"));
         
+        //BG Sheet
+        SpriteSheet title = new SpriteSheet(ImageLoader.loadImage("/gui/Aksarok-Rpg.png"));
+        SpriteSheet bgSheet1 = new SpriteSheet(ImageLoader.loadImage("/gui/bg/bg01.png"));
+        SpriteSheet bgSheet2 = new SpriteSheet(ImageLoader.loadImage("/gui/bg/bg02.png"));
+        SpriteSheet bgSheet3 = new SpriteSheet(ImageLoader.loadImage("/gui/bg/bg03.png"));
+        SpriteSheet bgSheet4 = new SpriteSheet(ImageLoader.loadImage("/gui/bg/bg04.png"));
+        SpriteSheet bgSheet5 = new SpriteSheet(ImageLoader.loadImage("/gui/bg/bg05.png"));
         
         //ITEMS
         itm_redPotion = potionSheet.crop(297, 102, 26, 35);
@@ -40,8 +47,16 @@ public class Assets {
         //GUI
         inventoryScreen = inventoryScreenSheet.crop(0, 0, inventoryScreenSheet.getImgWidth(), inventoryScreenSheet.getImgHeight());
         
-        bg_start_menu = new BufferedImage[1];
-        bg_start_menu[0] = bgSheet.crop(0, 0, bgSheet.getImgWidth(), bgSheet.getImgHeight());
+        theTitle = new BufferedImage[1];
+        theTitle[0] = title.crop(0,0,title.getImgWidth(), title.getImgHeight());
+        
+        bg_start_menu = new BufferedImage[5];
+        bg_start_menu[0] = bgSheet1.crop(0, 0, bgSheet1.getImgWidth(), bgSheet1.getImgHeight());
+        bg_start_menu[1] = bgSheet2.crop(0, 0, bgSheet2.getImgWidth(), bgSheet2.getImgHeight());
+        bg_start_menu[2] = bgSheet3.crop(0, 0, bgSheet3.getImgWidth(), bgSheet3.getImgHeight());
+        bg_start_menu[3] = bgSheet4.crop(0, 0, bgSheet4.getImgWidth(), bgSheet4.getImgHeight());
+        bg_start_menu[4] = bgSheet5.crop(0, 0, bgSheet5.getImgWidth(), bgSheet5.getImgHeight());
+        
         btn_start = new BufferedImage[2];
         btn_start[0] = btn_longBlue.crop(0, 0, btn_longBlue.getImgWidth(), btn_longBlue.getImgHeight());
         btn_start[1] = btn_longBlue2.crop(0, 0, btn_longBlue2.getImgWidth(), btn_longBlue2.getImgHeight());

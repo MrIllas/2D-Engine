@@ -7,10 +7,12 @@ import dev.aksarok.rpgGame.Game;
 import dev.aksarok.rpgGame.Handler;
 import static dev.aksarok.rpgGame.Launcher.*;
 import static dev.aksarok.rpgGame.Game.*;
+import dev.aksarok.rpgGame.gfx.Animation;
 import dev.aksarok.rpgGame.gfx.Assets;
 import dev.aksarok.rpgGame.gui.UIImageButton;
 import dev.aksarok.rpgGame.gui.UIManager;
 import dev.aksarok.rpgGame.gui.ClickListener;
+import dev.aksarok.rpgGame.gui.UIAnimated;
 
 public class MenuState extends State {
 
@@ -25,14 +27,19 @@ public class MenuState extends State {
         uiManager = new UIManager(handler);
         handler.getMouseManager().setUIManager(uiManager);
         
-        uiManager.addObject(new UIImageButton(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, Assets.bg_start_menu, null, 0, 0, new ClickListener() {
+        //Background
+        uiManager.addObject(new UIAnimated(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, Assets.bg_start_menu, 200));
+        
+        //Titulo
+        uiManager.addObject(new UIImageButton((SCREEN_WIDTH) / 2 -300, 100, 600, 100, Assets.theTitle, null, 0, 0, new ClickListener() {
             @Override
             public void onClick() {
+                
             }
         }));
         
         //Play button
-        uiManager.addObject(new UIImageButton(120, 300, 300, 60, Assets.btn_start, "Jugar", 145, 29, new ClickListener() {
+        uiManager.addObject(new UIImageButton((SCREEN_WIDTH) / 2 -150, 300, 300, 60, Assets.btn_start, "Jugar", 145, 29, new ClickListener() {
             @Override
             public void onClick() {
                 handler.getMouseManager().setUIManager(null);
@@ -41,7 +48,7 @@ public class MenuState extends State {
         }));
         
         //Exit button
-        uiManager.addObject(new UIImageButton(120, 400, 300, 60, Assets.btn_start, "Salir", 145, 29, new ClickListener() {
+        uiManager.addObject(new UIImageButton((SCREEN_WIDTH) / 2 -150, 400, 300, 60, Assets.btn_start, "Salir", 145, 29, new ClickListener() {
             @Override
             public void onClick() {
                 System.exit(0);
