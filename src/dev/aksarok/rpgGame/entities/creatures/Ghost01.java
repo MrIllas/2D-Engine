@@ -7,6 +7,7 @@ package dev.aksarok.rpgGame.entities.creatures;
 
 import dev.aksarok.rpgGame.Handler;
 import dev.aksarok.rpgGame.gfx.Animation;
+import dev.aksarok.rpgGame.gfx.Assets;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -18,13 +19,27 @@ public class Ghost01 extends Creature {
     
     //Animation
     private Animation animDown, animUp, animRight, animLeft, animStand;
-    private BufferedImage lastImg = new Animation(500, null, true).getSpecificFrame(2);
+    private BufferedImage lastImg = new Animation(500, Assets.ghost01_down, true).getSpecificFrame(2);
+    
+    private long lastTime, timer;
     
     //STATS
     public static int health = 4;
     
-    public Ghost01(Handler handler, String name, float x, float y) {
-        super(handler, name, x, y, 32, 64);
+    public Ghost01(Handler handler, float x, float y) {
+        super(handler, "Ghost", x, y, 32, 64);
+        
+        bounds.x = 0;
+        bounds.y = 32;
+        bounds.width = width;
+        bounds.height = height / 2;
+        
+        //Animations
+        animDown = new Animation(500, Assets.ghost01_down, true);
+        animUp = new Animation(500, Assets.ghost01_up, true);
+        animRight = new Animation(500, Assets.ghost01_right, true);
+        animLeft = new Animation(500, Assets.ghost01_left, true);
+        animStand = new Animation(500, Assets.ghost01_down, true);
     }
 
     @Override
@@ -33,6 +48,8 @@ public class Ghost01 extends Creature {
         animUp.tick();
         animRight.tick();
         animLeft.tick();
+        
+        moveStand();
     }
 
     @Override
@@ -65,6 +82,37 @@ public class Ghost01 extends Creature {
             return animDown.getCurrentFrame();
         }
         return lastImg;
+    }
+    
+    private void moveStand() {
+        int randDir = (int) ((Math.random() * 100) + 1);
+        
+        timer += System.currentTimeMillis() - lastTime;
+        lastTime = System.currentTimeMillis();
+        
+        if(timer > speed) {
+            switch(randDir) {
+                case 1:
+                    yMove = -speed * 10;
+                    break;
+                case 2:
+                    yMove = speed * 10;
+                    break;
+                case 3:
+                    xMove = -speed * 10;
+                    break;
+                case 4:
+                    xMove = speed * 10;
+                    break;
+                default:
+                    
+            }
+            timer = 0;
+        }
+    }
+    
+    private void checkPlayer() {
+        
     }
     
     

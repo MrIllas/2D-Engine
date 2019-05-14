@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import dev.aksarok.rpgGame.Game;
 import dev.aksarok.rpgGame.Handler;
 import dev.aksarok.rpgGame.entities.EntityManager;
+import dev.aksarok.rpgGame.entities.creatures.Ghost01;
 import dev.aksarok.rpgGame.entities.creatures.Player;
 import dev.aksarok.rpgGame.entities.statics.Box;
 import dev.aksarok.rpgGame.entities.statics.indestructible.Chest01;
@@ -37,6 +38,8 @@ public class World {
 		entityManager.addEntity(new Box(handler, 450, 452));
 		entityManager.addEntity(new Box(handler, 482, 452));
 		entityManager.addEntity(new Box(handler, 514, 452));
+                
+                entityManager.addEntity(new Ghost01(handler, 400, 300));
                 
                 entityManager.addEntity(new Chest01(handler, 600, 600));
 		
