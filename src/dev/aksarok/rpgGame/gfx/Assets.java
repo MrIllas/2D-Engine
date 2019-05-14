@@ -12,6 +12,7 @@ public class Assets {
     public static BufferedImage dungeonFloor, box, darkZone, wall01, wall02, wall03;
     public static BufferedImage itm_redPotion, itm_bluePotion;
     public static BufferedImage[] player_down, player_up, player_right, player_left;
+    public static BufferedImage[] ghost01_down, ghost01_up, ghost01_right, ghost01_left;
     public static BufferedImage[] btn_start, bg_start_menu, theTitle;
     
     public static BufferedImage[] ent_box;
@@ -24,6 +25,7 @@ public class Assets {
 
         SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/0x72_16x16DungeonTileset.v4.png"));
         SpriteSheet playerSheet = new SpriteSheet(ImageLoader.loadImage("/sprites/reaper_1.png"));
+        SpriteSheet ghost01Sheet = new SpriteSheet(ImageLoader.loadImage("/sprites/ghost1.png"));
         SpriteSheet potionSheet = new SpriteSheet(ImageLoader.loadImage("/textures/witchtiles_3.png"));
         SpriteSheet inventoryScreenSheet = new SpriteSheet(ImageLoader.loadImage("/gui/inventoryScreen.png"));
         
@@ -79,7 +81,26 @@ public class Assets {
         player_right[0] = playerSheet.crop(5, 78, width, unitHeight);
         player_right[1] = playerSheet.crop(56, 78, width, unitHeight);
         player_right[2] = playerSheet.crop(30, 78, width, unitHeight);//Stand
-
+        
+        ghost01_down = new BufferedImage[3];
+        ghost01_up = new BufferedImage[3];
+        ghost01_right = new BufferedImage[3];
+        ghost01_left = new BufferedImage[3];
+        
+        ghost01_down[0] = ghost01Sheet.crop(5, 6, width, unitHeight);
+        ghost01_down[1] = ghost01Sheet.crop(56, 6, width, unitHeight);
+        ghost01_down[2] = ghost01Sheet.crop(30, 6, width, unitHeight);//Stand
+        ghost01_up[0] = ghost01Sheet.crop(5, 112, width, unitHeight);
+        ghost01_up[1] = ghost01Sheet.crop(56, 112, width, unitHeight);
+        ghost01_up[2] = ghost01Sheet.crop(30, 112, width, unitHeight);//Stand
+        ghost01_left[0] = ghost01Sheet.crop(5, 42, width, unitHeight);
+        ghost01_left[1] = ghost01Sheet.crop(56, 42, width, unitHeight);
+        ghost01_left[2] = ghost01Sheet.crop(30, 42, width, unitHeight);//Stand
+        ghost01_right[0] = ghost01Sheet.crop(5, 78, width, unitHeight);
+        ghost01_right[1] = ghost01Sheet.crop(56, 78, width, unitHeight);
+        ghost01_right[2] = ghost01Sheet.crop(30, 78, width, unitHeight);//Stand
+        
+        
         ent_box = new BufferedImage[7]; //3 hit 4Destroy
 
         box = sheet.crop(80, 107, width, 21);
