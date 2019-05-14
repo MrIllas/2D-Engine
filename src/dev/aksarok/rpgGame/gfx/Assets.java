@@ -69,6 +69,7 @@ public class Assets {
 
         box = sheet.crop(80, 107, width, 21);
         //ent_box[0] = destructObjSheet.crop(x, y, width, height);
+        
         //TILES
         dungeonFloor = sheet.crop(64, 112, width, height);
 

@@ -7,6 +7,7 @@ import dev.aksarok.rpgGame.Handler;
 import dev.aksarok.rpgGame.entities.EntityManager;
 import dev.aksarok.rpgGame.entities.creatures.Player;
 import dev.aksarok.rpgGame.entities.statics.Box;
+import dev.aksarok.rpgGame.entities.statics.indestructible.Chest01;
 import dev.aksarok.rpgGame.items.ItemManager;
 import dev.aksarok.rpgGame.tiles.Tile;
 import dev.aksarok.rpgGame.utils.Utils;
@@ -18,11 +19,12 @@ public class World {
 	private int spawnX, spawnY;
 	private int[][] tiles;
 	
+        
+        //ITEM
+	private ItemManager itemManager;
+        
 	//Entities
 	private EntityManager entityManager;
-	
-	//ITEM
-	private ItemManager itemManager;
 	
 	public World(Handler handler, String path) {
 		this.handler = handler;
@@ -35,6 +37,8 @@ public class World {
 		entityManager.addEntity(new Box(handler, 450, 452));
 		entityManager.addEntity(new Box(handler, 482, 452));
 		entityManager.addEntity(new Box(handler, 514, 452));
+                
+                entityManager.addEntity(new Chest01(handler, 600, 600));
 		
 		loadWorld(path);
 		
