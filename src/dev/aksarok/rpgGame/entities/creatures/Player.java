@@ -139,7 +139,7 @@ public class Player extends Creature {
         iArea.width = bounds.width * 3;
         iArea.height = bounds.height * 3;
         iArea.x = cb.x + cb.width / 2 - iArea.width / 2;
-        iArea.y = cb.y - ar.height;
+        iArea.y = cb.y - iArea.height;
     }
     
     private void checkInteraction() {
@@ -196,8 +196,12 @@ public class Player extends Creature {
                     iArea.width,
                     iArea.height);
         //Model del jugador
-        g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
-
+        g.drawImage(getCurrentAnimationFrame(), 
+                           (int) (x - handler.getGameCamera().getxOffset()), 
+                           (int) (y - handler.getGameCamera().getyOffset()), 
+                           width, 
+                           height, 
+                           null);
         //Descomentar per veura la collision box
 //        g.setColor(Color.red);
 //        g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()), 

@@ -42,19 +42,5 @@ public class Box extends StaticEntity {
         //g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()), (int) (y + bounds.y - handler.getGameCamera().getyOffset()), bounds.width, bounds.height);
     }
 
-    @Override
-    protected void deadthDrop(int minDropNumber, int maxDropNumber, int[] itemId) {
-        int dropNumber = randomInt(minDropNumber, maxDropNumber);
-
-        System.out.println("Drops: " + dropNumber);
-        for (int t = 0; t <= dropNumber; t++) {
-            int toDrop = randomInt(0, (itemId.length - 1));
-            System.out.println("U: " + t);
-            int rY = randomInt(-30, 30);
-            int rX = randomInt(-30, 30);
-            handler.getWorld().getItemManager().addItem(Item.items[toDrop].createNew((int) x + rX, (int) y + rY));
-        }
-    }
-
     //GETTERS AND SETTERS
 }
