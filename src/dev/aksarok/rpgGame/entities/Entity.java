@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import dev.aksarok.rpgGame.Handler;
+import dev.aksarok.rpgGame.items.Item;
+import static dev.aksarok.rpgGame.utils.Utils.randomInt;
 
 public abstract class Entity {
 
@@ -39,7 +41,18 @@ public abstract class Entity {
 
     public abstract void die();
 
-    protected abstract void deadthDrop(int maxDropNumber, int minDropNumber, int[] itemId);
+    protected void deadthDrop(int maxDropNumber, int minDropNumber, int[] itemId) {
+        int dropNumber = randomInt(minDropNumber, maxDropNumber);
+
+        System.out.println("Drops: " + dropNumber);
+        for (int t = 0; t <= dropNumber; t++) {
+            int toDrop = randomInt(0, (itemId.length - 1));
+            System.out.println("U: " + t);
+            int rY = randomInt(-30, 30);
+            int rX = randomInt(-30, 30);
+            handler.getWorld().getItemManager().addItem(Item.items[toDrop].createNew((int) x + rX, (int) y + rY));
+        }
+    }
 
     public void hurt(int amt) {
         health -= amt;

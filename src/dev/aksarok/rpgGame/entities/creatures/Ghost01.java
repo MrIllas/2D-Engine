@@ -8,6 +8,7 @@ package dev.aksarok.rpgGame.entities.creatures;
 import dev.aksarok.rpgGame.Handler;
 import dev.aksarok.rpgGame.gfx.Animation;
 import dev.aksarok.rpgGame.gfx.Assets;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -21,7 +22,9 @@ public class Ghost01 extends Creature {
     private Animation animDown, animUp, animRight, animLeft, animStand;
     private BufferedImage lastImg = new Animation(500, Assets.ghost01_down, true).getSpecificFrame(2);
     
-    private long lastTime, timer;
+    private int direction = 1;
+    private long currentTime, nextTime;
+    private Boolean move = false;
     
     //STATS
     public static int health = 4;
@@ -50,21 +53,29 @@ public class Ghost01 extends Creature {
         animLeft.tick();
         
         moveStand();
+        move();
     }
-
+    
+    private void checkPlayer() {
+        
+    }
+    
     @Override
     public void render(Graphics g) {
+        //Area de interaccio
+        g.setColor(Color.green);
+//        g.drawRect( (int) (iArea.x - handler.getGameCamera().getxOffset()),
+//                    (int) (iArea.y - handler.getGameCamera().getyOffset()),
+//                    iArea.width,
+//                    iArea.height);
+        
         g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
     }
 
     @Override
     public void die() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    protected void deadthDrop(int maxDropNumber, int minDropNumber, int[] itemId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int[] item = {0, 1};
+        deadthDrop(2, 1, item);
     }
     
     private BufferedImage getCurrentAnimationFrame() {
@@ -85,34 +96,42 @@ public class Ghost01 extends Creature {
     }
     
     private void moveStand() {
-        int randDir = (int) ((Math.random() * 100) + 1);
+        xMove = 0;
+        yMove = 0;
         
-        timer += System.currentTimeMillis() - lastTime;
-        lastTime = System.currentTimeMillis();
+        currentTime = System.currentTimeMillis();
         
-        if(timer > speed) {
-            switch(randDir) {
+        if(move == false) { 
+            nextTime = System.currentTimeMillis() + 500;
+            direction = (int) ((Math.random() * 5) + 1);
+            move = true;
+        }
+        
+        if(nextTime > currentTime) {
+            switch(direction) {
                 case 1:
-                    yMove = -speed * 10;
+                    yMove = -speed;
+                    //y = -speed;
                     break;
                 case 2:
-                    yMove = speed * 10;
+                    yMove = speed;
+                    //y = speed;
                     break;
                 case 3:
-                    xMove = -speed * 10;
+                    xMove = -speed;
+                    //x = -speed;
                     break;
                 case 4:
-                    xMove = speed * 10;
+                    xMove = speed;
+                    //x = speed;
                     break;
                 default:
-                    
+
             }
-            timer = 0;
         }
-    }
-    
-    private void checkPlayer() {
-        
+        else if (nextTime < currentTime) {
+            move = false;
+        }
     }
     
     
