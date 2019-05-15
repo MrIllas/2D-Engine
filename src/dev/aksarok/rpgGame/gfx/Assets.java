@@ -7,7 +7,7 @@ public class Assets {
 
     private static final int width = 16, height = 16, unitHeight = 32;
 
-    public static Font font28, font20, font48;
+    public static Font font28, font20, font48, font15;
 
     public static BufferedImage dungeonFloor, box, darkZone, wall01, wall02, wall03;
     public static BufferedImage itm_redPotion, itm_bluePotion;
@@ -20,13 +20,15 @@ public class Assets {
     
     //
     
-    public static BufferedImage floorStone1, floorStone2, floorStone3, floorStone4, floorStone5, floorStone6, floorStone7, floorStone8, floorStone9;
+    public static BufferedImage floorStone1, floorStone2, floorStone3, floorStone4, floorStone5, floorStone6, floorStone7, floorStone8, floorStone9, floorStone10, floorStone11, floorStone12;
     public static BufferedImage topColumn, midColumn, botColumn;
+    public static BufferedImage stairs1, stairs2, stairs3, stairs4;
     
     public static void init() {
         font48 = FontLoader.loadFont("res/fonts/slkscr.ttf", 48);
         font28 = FontLoader.loadFont("res/fonts/slkscr.ttf", 28);
         font20 = FontLoader.loadFont("res/fonts/slkscr.ttf", 20);
+        font15 = FontLoader.loadFont("res/fonts/slkscr.ttf", 15);
 
         SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/0x72_16x16DungeonTileset.v4.png"));
         SpriteSheet playerSheet = new SpriteSheet(ImageLoader.loadImage("/sprites/reaper_1.png"));
@@ -112,7 +114,7 @@ public class Assets {
         //ent_box[0] = destructObjSheet.crop(x, y, width, height);
         
         //TILES
-        dungeonFloor = sheet.crop(64, 112, width, height);
+        dungeonFloor = sheet.crop(32, 48, width, height);
 
         darkZone = sheet.crop(64, 96, width, height);
         wall01 = sheet.crop(0, 16, width, height);
@@ -123,15 +125,23 @@ public class Assets {
         floorStone1 = sheet.crop(0, 96, width, height);
         floorStone2 = sheet.crop(16, 96, width, height);
         floorStone3 = sheet.crop(32, 96, width, height);
-        floorStone4 = sheet.crop(0, 112, width, height);
-        floorStone5 = sheet.crop(16, 112, width, height);
-        floorStone6 = sheet.crop(32, 112, width, height);
-        floorStone7 = sheet.crop(0, 128, width, height);
-        floorStone8 = sheet.crop(16, 128, width, height);
-        floorStone9 = sheet.crop(32, 128, width, height);
+        floorStone4 = sheet.crop(48, 96, width, height);
+        floorStone5 = sheet.crop(0, 112, width, height);
+        floorStone6 = sheet.crop(16, 112, width, height);
+        floorStone7 = sheet.crop(32, 112, width, height);
+        floorStone8 = sheet.crop(48, 112, width, height);
+        floorStone9 = sheet.crop(0, 128, width, height);
+        floorStone10 = sheet.crop(16, 128, width, height);
+        floorStone11 = sheet.crop(32, 128, width, height);
+        floorStone12 = sheet.crop(48, 128, width, height);
         
         topColumn = sheet.crop(96, 48, width, height);
         midColumn = sheet.crop(96, 64, width, height);
         botColumn = sheet.crop(96, 80, width, height);
+       
+        stairs1 = sheet.crop(80, 15, width, height);
+        stairs2 = sheet.crop(96, 15, width, height);
+        stairs3 = sheet.crop(80, 31, width, height);
+        stairs4 = sheet.crop(96, 31, width, height);
     }
 }

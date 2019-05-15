@@ -8,6 +8,7 @@ public class TopColumn extends Tile{
 	public TopColumn(int id) {
 		super(Assets.topColumn, id);
 		isSolid();
+                setBackground(Assets.darkZone);
 	}
 	
 	@Override
