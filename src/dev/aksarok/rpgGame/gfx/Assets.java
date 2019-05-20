@@ -23,6 +23,8 @@ public class Assets {
     public static BufferedImage floorStone1, floorStone2, floorStone3, floorStone4, floorStone5, floorStone6, floorStone7, floorStone8, floorStone9, floorStone10, floorStone11, floorStone12;
     public static BufferedImage topColumn, midColumn, botColumn;
     public static BufferedImage stairs1, stairs2, stairs3, stairs4;
+    public static BufferedImage scull;
+    public static BufferedImage topFountain, midFRed, midFGreen, midFBlue, botFRed, botFGreen, botFBlue;
     
     public static void init() {
         font48 = FontLoader.loadFont("res/fonts/slkscr.ttf", 48);
@@ -143,5 +145,15 @@ public class Assets {
         stairs2 = sheet.crop(96, 15, width, height);
         stairs3 = sheet.crop(80, 31, width, height);
         stairs4 = sheet.crop(96, 31, width, height);
+        
+        scull = sheet.crop(16, 48, width, height);
+        
+        topFountain = sheet.crop(0, 48, width, height);
+        midFRed = sheet.crop(0, 64, width, height);
+        midFGreen = sheet.crop(16, 64, width, height);
+        midFBlue = sheet.crop(32, 64, width, height);
+        botFRed = sheet.crop(0, 80, width, height);
+        botFGreen = sheet.crop(16, 80, width, height);
+        botFBlue = sheet.crop(32, 80, width, height);
     }
 }

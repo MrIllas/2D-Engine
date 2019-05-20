@@ -35,6 +35,16 @@ public class Tile {
     public static Tile stairs2 = new Stairs2(45);
     public static Tile stairs3 = new Stairs3(46);
     public static Tile stairs4 = new Stairs4(47);
+    
+    public static Tile scull = new Scull(48);
+    
+    public static Tile topFountain = new TopFountain(50);
+    public static Tile midFRed = new MidFRed(51);
+    public static Tile midFGreen = new MidFGreen(52);
+    public static Tile midFBlue = new MidFBlue(53);
+    public static Tile botFRed = new BotFRed(54);
+    public static Tile botFGreen = new BotFGreen(55);
+    public static Tile botFBlue = new BotFBlue(56);
     //CLASS
 
     
