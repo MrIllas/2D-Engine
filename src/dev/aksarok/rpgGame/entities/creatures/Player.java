@@ -134,12 +134,13 @@ public class Player extends Creature {
     private Rectangle iArea; 
     
     private void interactArea() {
+        cb = getCollisionBounds(0, 0);
         iArea = getCollisionBounds(0,0);
         iArea = new Rectangle();
         iArea.width = bounds.width * 3;
         iArea.height = bounds.height * 3;
         iArea.x = cb.x + cb.width / 2 - iArea.width / 2;
-        iArea.y = cb.y - iArea.height;
+        iArea.y = cb.y + cb.width / 2 - iArea.height / 2;
     }
     
     private void checkInteraction() {
