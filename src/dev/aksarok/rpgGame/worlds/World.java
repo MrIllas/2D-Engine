@@ -42,6 +42,7 @@ public class World {
                 entityManager.addEntity(new Ghost01(handler, 400, 300));
                 
                 entityManager.addEntity(new Chest01(handler, 600, 600));
+                entityManager.addEntity(new Chest01(handler, 600, 200));
 		
 		loadWorld(path);
 		
