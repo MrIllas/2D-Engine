@@ -75,7 +75,7 @@ public class Player extends Creature {
     }
 
     private Rectangle cb; //CollisionBounds
-    private Rectangle ar; //Area de atac
+    private Rectangle ar; //Area d'atac
 
     private void checkAttacks() {
         attackTimer += System.currentTimeMillis() - lastAttackTimer;
@@ -115,17 +115,21 @@ public class Player extends Creature {
 
         for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
             
-            tarjetHealth = e.getHealth();
-            tarjetName = e.getName();
+            System.out.println("Nom -> "+e.getName());
+            System.out.println("Health -> "+e.getHealth());
+            System.out.println("Destructible -> "+e.isIsDestructible());
             
             //Mira si se puede dañar o no
-            if(e.isIsDestructible() == false) { return; }
+            if(e.isIsDestructible() != true) { continue; }
             
             if (e.equals(this)) {
                 continue;
             }
+            
             if (e.getCollisionBounds(0, 0).intersects(ar)) {
                 e.hurt(1);
+                tarjetHealth = e.getHealth();
+                tarjetName = e.getName();
                 return;
             }
         }
@@ -149,7 +153,7 @@ public class Player extends Creature {
         for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
             
             if(e.getCollisionBounds(0, 0).intersects(iArea)) {
-                if(e.isIsInteractable() == false) { return;}
+                if(e.isIsInteractable() == false) { continue;}
                 if(e.equals(this)) { continue; }
                 
                 interactName = e.getName();

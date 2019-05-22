@@ -39,10 +39,11 @@ public class World {
 		entityManager.addEntity(new Box(handler, 482, 452));
 		entityManager.addEntity(new Box(handler, 514, 452));
                 
+                entityManager.addEntity(new Box(handler, 450, 100));
+                
                 entityManager.addEntity(new Ghost01(handler, 400, 300));
                 
                 entityManager.addEntity(new Chest01(handler, 600, 600));
-                entityManager.addEntity(new Chest01(handler, 600, 200));
 		
 		loadWorld(path);
 		

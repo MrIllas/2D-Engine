@@ -37,30 +37,31 @@ public class Chest01 extends IndestructibleEntity{
         bounds.height = (int) (height - height / 2.2f);
         isInteractable = true;
         
-        chest = new Chest(handler);
+        this.chest = new Chest(handler);
         //
-        chest.addItem(Item.items[0]);
-        chest.addItem(Item.items[1]);
-        chest.getItem(0).setCount(5);
+        this.chest.addItem(Item.items[0]);
+        this.chest.addItem(Item.items[1]);
+        this.chest.getItem(0).setCount(5);
     }
     
     @Override
     public void tick() {
-        chest.tick();
+        this.chest.tick();
         doInteraction();
         
-        if(printFeed == false) {
-            chest.setOpen(false);
-            activeMenu = false;
+        if(this.printFeed == false) {
+            this.chest.setOpen(false);
+            this.activeMenu = false;
         }
     }
 
     @Override
     public void render(Graphics g) {
         g.drawImage(Assets.box, (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+        
         //Descomentar per veura la collision box
-        g.setColor(Color.red);
-        g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()), (int) (y + bounds.y - handler.getGameCamera().getyOffset()), bounds.width, bounds.height);
+//        g.setColor(Color.red);
+//        g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()), (int) (y + bounds.y - handler.getGameCamera().getyOffset()), bounds.width, bounds.height);
         
         feedG(g);
         
@@ -78,31 +79,35 @@ public class Chest01 extends IndestructibleEntity{
     }
     
     protected void feedG(Graphics g) {
-        if(printFeed == true) {
-            Text.drawString(g, "(F)", (int) x + (Tile.TILEWIDTH/2), (int) y - 70, true, Color.white, Assets.font20);
+        if(this.printFeed == true) {
+            Text.drawString(g, "(F)", (int) x + (Tile.TILEWIDTH/2), (int) (y - 20 - handler.getGameCamera().getyOffset()), true, Color.white, Assets.font20);
         }
     }
     
     protected void doInteraction() {
-        if(printFeed != true ) { return; }
+        if(this.printFeed != true ) { return; }
         
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F)) {
-            activeMenu = !activeMenu;
-            chest.setOpen(true);
+            this.activeMenu = !activeMenu;
+            this.chest.setOpen(true);
         }
     }
     
     protected void interactionToRender(Graphics g) {
         if(!activeMenu) { return; }
-            chest.render(g);
+            this.chest.render(g);
         
     }
 
     public Chest getChest() {
-        return chest;
+        return this.chest;
     }
 
     public void setChest(Chest chest) {
         this.chest = chest;
+    }
+    
+    public void addItemToChest(Item item) {
+        this.chest.addItem(item);
     }
 }

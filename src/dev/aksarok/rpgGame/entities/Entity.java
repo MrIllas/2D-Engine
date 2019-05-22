@@ -65,7 +65,7 @@ public abstract class Entity {
     public boolean checkEntityCollisions(float xOffset, float yOffset) {
         for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
             if (e.equals(this)) {
-                continue; //Salta 1 volta del for si es s'esta comparant amb si mateix
+                continue; //Salta 1 volta del for si s'esta comparant amb si mateix
             }
             if (e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset))) {
                 return true;

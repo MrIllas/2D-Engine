@@ -118,12 +118,17 @@ public class Ghost01 extends Creature {
         
         if (move == false) { 
             nextTime = System.currentTimeMillis() + 500;
-            direction = (int) ((Math.random() * 5) + 1);
             move = true;
         }
         
         if (nextTime > currentTime) {
-            if(targetX > x && targetY > y) {
+            if (targetY > y && (targetX >= x - 1.0 && targetX <= x + 1.0)) {
+                yMove = speed;
+            }
+            else if (targetY < y && (targetX >= x - 1.0 && targetX <= x + 1.0)) {
+                yMove = -speed;
+            }
+            else if(targetX > x && targetY > y) {
                 xMove = speed;
                 yMove = speed;
             }
@@ -145,17 +150,10 @@ public class Ghost01 extends Creature {
             else if (targetX < x) {
                 xMove = -speed;
             }
-            else if (targetY > y) {
-                yMove = speed;
-            }
-            else if (targetY < y) {
-                yMove = -speed;
-            }
         }
         else if (nextTime < currentTime) {
             move = false;
         }
-        
     }
     
     @Override

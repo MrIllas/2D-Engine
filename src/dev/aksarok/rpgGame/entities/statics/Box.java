@@ -21,6 +21,8 @@ public class Box extends StaticEntity {
         bounds.y = (int) (height / 2.2f);
         bounds.width = width;
         bounds.height = (int) (height - height / 2.2f);
+        isDestructible = true;
+        isInteractable = false;
     }
 
     @Override
