@@ -16,6 +16,7 @@ public class Assets {
     public static BufferedImage[] btn_start, bg_start_menu, theTitle;
     
     public static BufferedImage[] ent_box;
+    public static BufferedImage[] ent_chest01, ent_chest02;
     public static BufferedImage inventoryScreen;
     
     //
@@ -109,6 +110,15 @@ public class Assets {
         ghost01_right[1] = ghost01Sheet.crop(56, 78, width, unitHeight);
         ghost01_right[2] = ghost01Sheet.crop(30, 78, width, unitHeight);//Stand
         
+        ent_chest01 = new BufferedImage[3]; //Normal
+        ent_chest01[0] = sheet.crop(224, 178, 16, 14); //Tancat
+        ent_chest01[1] = sheet.crop(224, 194, 16, 14); //Obert buit
+        ent_chest01[2] = sheet.crop(224, 210, 16, 14); //Obert ple
+        
+        ent_chest02 = new BufferedImage[3]; //Daurat
+        ent_chest02[0] = sheet.crop(240, 178, 16, 14);
+        ent_chest02[1] = sheet.crop(240, 194, 16, 14);
+        ent_chest02[2] = sheet.crop(240, 210, 16, 14);
         
         ent_box = new BufferedImage[7]; //3 hit 4Destroy
 

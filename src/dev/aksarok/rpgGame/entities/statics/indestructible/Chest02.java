@@ -19,16 +19,16 @@ import java.awt.event.KeyEvent;
  *
  * @author robert
  */
-public class Chest01 extends IndestructibleEntity{
+public class Chest02 extends IndestructibleEntity{
     
     //STATS
-    private static String name = "Chest01";
+    private static String name = "Chest02";
     
     private static Boolean activeMenu = false;
     
     protected Chest chest;
     
-    public Chest01(Handler handler, float x, float y) {
+    public Chest02(Handler handler, float x, float y) {
         super(handler, name, x, y, Tile.TILEWIDTH, Tile.TILEHEIGHT);
         
         bounds.x = 0;
@@ -40,7 +40,6 @@ public class Chest01 extends IndestructibleEntity{
         this.chest = new Chest(handler);
         //
         itemPool();
-        
     }
     
     @Override
@@ -57,10 +56,10 @@ public class Chest01 extends IndestructibleEntity{
     @Override
     public void render(Graphics g) {
         if(this.activeMenu) {
-            g.drawImage(Assets.ent_chest01[2], (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+            g.drawImage(Assets.ent_chest02[2], (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
         }
         else {
-            g.drawImage(Assets.ent_chest01[0], (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+            g.drawImage(Assets.ent_chest02[0], (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
         }
         
         

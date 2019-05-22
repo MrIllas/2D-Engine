@@ -50,6 +50,7 @@ public class Ghost01 extends Creature {
         animRight = new Animation(500, Assets.ghost01_right, true);
         animLeft = new Animation(500, Assets.ghost01_left, true);
         animStand = new Animation(500, Assets.ghost01_down, true);
+        
     }
 
     @Override
@@ -77,10 +78,29 @@ public class Ghost01 extends Creature {
         }
         move();
         
+       
+        if(target != null) {
+            if(target.getCollisionBounds(0, 0).intersects(dArea)) {
+                System.out.println("Ouch!");
+                target.hurt(1);
+            }
+        }
+        
+        damageArea();
     }
     
+    private Rectangle dArea;
     private Rectangle vArea;
     private Rectangle cb;
+    
+    private void damageArea() {
+        cb = getCollisionBounds(0, 0);
+        dArea = new Rectangle();
+        dArea.width = bounds.width + 40;
+        dArea.height = bounds.height + 40;
+        dArea.x = cb.x + cb.width / 2 - dArea.width / 2;
+        dArea.y = cb.y + cb.width / 2 - dArea.height / 2;
+    }
     
     private void visionArea() {
         cb = getCollisionBounds(0, 0);
@@ -97,7 +117,6 @@ public class Ghost01 extends Creature {
             if(e.getClass() != Player.class) continue;
             
             if(e.getCollisionBounds(0, 0).intersects(vArea)) {
-//                System.out.println("Interactuando!");
                 stand = "followPlayerStand";
                 target = e;
             }
@@ -164,6 +183,12 @@ public class Ghost01 extends Creature {
                     (int) (vArea.y - handler.getGameCamera().getyOffset()),
                     vArea.width,
                     vArea.height);
+        //Area de damage
+        g.setColor(Color.blue);
+        g.drawRect( (int) (dArea.x - handler.getGameCamera().getxOffset()),
+                    (int) (dArea.y - handler.getGameCamera().getyOffset()),
+                    dArea.width,
+                    dArea.height);
         
         g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
         

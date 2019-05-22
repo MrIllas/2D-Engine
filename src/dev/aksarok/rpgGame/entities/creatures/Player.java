@@ -115,10 +115,6 @@ public class Player extends Creature {
 
         for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
             
-            System.out.println("Nom -> "+e.getName());
-            System.out.println("Health -> "+e.getHealth());
-            System.out.println("Destructible -> "+e.isIsDestructible());
-            
             //Mira si se puede dañar o no
             if(e.isIsDestructible() != true) { continue; }
             
@@ -169,6 +165,7 @@ public class Player extends Creature {
     @Override
     public void die() {
         System.out.println("You lose!");
+        
     }
 
     private void getInput() {
