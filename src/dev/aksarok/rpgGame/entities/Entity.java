@@ -113,6 +113,10 @@ public abstract class Entity {
         return active;
     }
 
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+    
     public int getHealth() {
         return health;
     }
@@ -152,4 +156,6 @@ public abstract class Entity {
     public static void setPrintFeed(Boolean printFeed) {
         Entity.printFeed = printFeed;
     }
+    
+    
 }

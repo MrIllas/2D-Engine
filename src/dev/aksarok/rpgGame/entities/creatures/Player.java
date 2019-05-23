@@ -11,6 +11,7 @@ import dev.aksarok.rpgGame.gfx.Animation;
 import dev.aksarok.rpgGame.gfx.Assets;
 import dev.aksarok.rpgGame.gui.FeedBack;
 import dev.aksarok.rpgGame.gui.inventory.Inventory;
+import dev.aksarok.rpgGame.states.State;
 
 public class Player extends Creature {
 
@@ -26,14 +27,17 @@ public class Player extends Creature {
     private FeedBack feedBack;
     
     //STATS
-    public static int health = 10;
     public static int tarjetHealth = 0;
     public static String tarjetName = "";
     public static String interactName = "";
 
     public Player(Handler handler, String name, float x, float y) {
         super(handler, name, x, y, 32, 64);
-
+        
+        //STATS
+        health = 10;
+        //
+        
         bounds.x = 0;
         bounds.y = 32;
         bounds.width = width;
@@ -71,6 +75,7 @@ public class Player extends Creature {
         inventory.tick();
 
         //FeedBack
+        feedBack.setPlayerHealth(health);
         feedBack.tick();
     }
 
@@ -165,7 +170,7 @@ public class Player extends Creature {
     @Override
     public void die() {
         System.out.println("You lose!");
-        
+        State.setState(handler.getGame().menuState);
     }
 
     private void getInput() {
@@ -253,7 +258,7 @@ public class Player extends Creature {
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
     }
-
+    
     public int getHealth() {
         return health;
     }

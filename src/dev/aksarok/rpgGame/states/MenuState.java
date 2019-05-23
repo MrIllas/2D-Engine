@@ -22,8 +22,6 @@ public class MenuState extends State {
     
     public MenuState(Handler handler) {
         
-        
-        
         super(handler);
         uiManager = new UIManager(handler);
         handler.getMouseManager().setUIManager(uiManager);
@@ -43,7 +41,11 @@ public class MenuState extends State {
         uiManager.addObject(new UIImageButton((SCREEN_WIDTH) / 2 -150, 300, 300, 60, Assets.btn_start, "Jugar", 145, 29, new ClickListener() {
             @Override
             public void onClick() {
-                handler.getMouseManager().setUIManager(null);
+                //handler.getMouseManager().setUIManager(null);
+                if(handler.getGame().gameState.getWorld().getEntityManager().getPlayer().getHealth() == 0) {
+                    handler.getGame().gameState.getWorld().getEntityManager().getPlayer().setHealth(10);
+                    handler.getGame().gameState.getWorld().getEntityManager().getPlayer().setActive(true);
+                }
                 State.setState(handler.getGame().gameState);
             }
         }));
@@ -62,10 +64,6 @@ public class MenuState extends State {
         uiManager.tick();
 
         System.out.println("X: " + handler.getMouseManager().getMouseX() + "||Y: " + handler.getMouseManager().getMouseY());
-        /*if(handler.getMouseManager().isLeftPressed() && handler.getMouseManager().isRightPressed()) {
-			State.setState(handler.getGame().gameState);
-		}*/
-
     }
 
     @Override

@@ -15,6 +15,8 @@ public class FeedBack {
 
     private Handler handler;
     private boolean active = false;
+    
+    private int playerHealth = 0;
 
     //Posicion
     private int invX = 32 * 0 + 2, invY = 16; //Launcher.SCREEN_WIDTH
@@ -40,9 +42,17 @@ public class FeedBack {
 
         //System.out.println("Functiona!");
         Text.drawString(g, "FPS: " + Game.endFps + "", invX, invY, false, Color.GREEN, Assets.font20);
-        Text.drawString(g, "HP: " + Player.health + "", invX, invY * 2, false, Color.GREEN, Assets.font20);
+        Text.drawString(g, "HP: " + playerHealth + "", invX, invY * 2, false, Color.GREEN, Assets.font20);
         Text.drawString(g, "T.Name: " + Player.tarjetName + "", invX, invY * 3, false, Color.GREEN, Assets.font20);
         Text.drawString(g, "T.HP: " + Player.tarjetHealth + "", invX, invY * 4, false, Color.GREEN, Assets.font20);
         Text.drawString(g, "L. Interaction :" + Player.interactName + "", invX, invY * 5, false, Color.GREEN, Assets.font20);
+    }
+
+    public int getPlayerHealth() {
+        return playerHealth;
+    }
+
+    public void setPlayerHealth(int playerHealth) {
+        this.playerHealth = playerHealth;
     }
 }

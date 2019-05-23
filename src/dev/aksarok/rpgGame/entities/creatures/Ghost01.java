@@ -32,6 +32,9 @@ public class Ghost01 extends Creature {
     private String stand = "moveStand";
     private Entity target;
     
+    //ATACK TIMER
+    private long lastAttackTimer, attackCooldown = 500, attackTimer = attackCooldown;
+    
     //STATS
     public static int health = 4;
     
@@ -50,7 +53,6 @@ public class Ghost01 extends Creature {
         animRight = new Animation(500, Assets.ghost01_right, true);
         animLeft = new Animation(500, Assets.ghost01_left, true);
         animStand = new Animation(500, Assets.ghost01_down, true);
-        
     }
 
     @Override
@@ -66,27 +68,35 @@ public class Ghost01 extends Creature {
         //Moviment
         switch(stand) {
             case "moveStand":
-//                System.out.println("Move stand");
                 moveStand();
                 break;
             case "followPlayerStand":
-//                System.out.println("Follow Player stand");
                 followPlayerStand();
                 break;
             default:
                 System.out.println("No stand");
         }
         move();
+        checkAttacks();
+    }
+    
+    private void checkAttacks() {
+        attackTimer += System.currentTimeMillis() - lastAttackTimer;
+        lastAttackTimer = System.currentTimeMillis();
         
-       
+        if (attackTimer < attackCooldown) {
+            dArea.width = 0;
+            dArea.height = 0;
+            return;
+        }
+        damageArea();
+        attackTimer = 0;
         if(target != null) {
             if(target.getCollisionBounds(0, 0).intersects(dArea)) {
                 System.out.println("Ouch!");
                 target.hurt(1);
             }
-        }
-        
-        damageArea();
+        } 
     }
     
     private Rectangle dArea;
@@ -96,8 +106,8 @@ public class Ghost01 extends Creature {
     private void damageArea() {
         cb = getCollisionBounds(0, 0);
         dArea = new Rectangle();
-        dArea.width = bounds.width + 40;
-        dArea.height = bounds.height + 40;
+        dArea.width = bounds.width + 20;
+        dArea.height = bounds.height + 20;
         dArea.x = cb.x + cb.width / 2 - dArea.width / 2;
         dArea.y = cb.y + cb.width / 2 - dArea.height / 2;
     }
