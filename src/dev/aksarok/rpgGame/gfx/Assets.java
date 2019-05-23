@@ -18,6 +18,7 @@ public class Assets {
     public static BufferedImage[] ent_box;
     public static BufferedImage[] ent_chest01, ent_chest02;
     public static BufferedImage inventoryScreen;
+    public static BufferedImage[] healthBar, healthBarFull;
     
     //
     
@@ -38,9 +39,8 @@ public class Assets {
         SpriteSheet ghost01Sheet = new SpriteSheet(ImageLoader.loadImage("/sprites/ghost1.png"));
         SpriteSheet potionSheet = new SpriteSheet(ImageLoader.loadImage("/textures/witchtiles_3.png"));
         SpriteSheet inventoryScreenSheet = new SpriteSheet(ImageLoader.loadImage("/gui/inventoryScreen.png"));
-        
+        SpriteSheet healthBarsSheet = new SpriteSheet(ImageLoader.loadImage("/gui/healthBars.png"));
         //GUI SHEET
-        SpriteSheet bgSheet = new SpriteSheet(ImageLoader.loadImage("/gui/bg_start_menu.jpg"));
         SpriteSheet btn_longBlue = new SpriteSheet(ImageLoader.loadImage("/gui/buttonLong_blue.png"));
         SpriteSheet btn_longBlue2 = new SpriteSheet(ImageLoader.loadImage("/gui/buttonLong_blue_pressed.png"));
         
@@ -55,8 +55,16 @@ public class Assets {
         //ITEMS
         itm_redPotion = potionSheet.crop(297, 102, 26, 35);
         itm_bluePotion = potionSheet.crop(345, 102, 26, 35);
-
+        
         //GUI
+        healthBar = new BufferedImage[2];
+        healthBar[0] = healthBarsSheet.crop(0, 0, 107, 14);//Base x y w h
+        healthBar[1] = healthBarsSheet.crop(0, 43, 91, 7);//Vida buida
+        healthBarFull = new BufferedImage[2];
+        //healthBarFull[0] = healthBarsSheet.crop(0, 34, 91, 7);//Vida full 1
+        healthBarFull[0] = healthBarsSheet.crop(0, 25, 91, 7);//Vida full 2
+        healthBarFull[1] = healthBarsSheet.crop(0, 16, 91, 7);//Vida full 3
+        
         inventoryScreen = inventoryScreenSheet.crop(0, 0, inventoryScreenSheet.getImgWidth(), inventoryScreenSheet.getImgHeight());
         
         theTitle = new BufferedImage[1];

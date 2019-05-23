@@ -197,11 +197,11 @@ public class Player extends Creature {
     @Override
     public void render(Graphics g) {
         //Area de interaccio
-        g.setColor(Color.green);
-        g.drawRect( (int) (iArea.x - handler.getGameCamera().getxOffset()),
-                    (int) (iArea.y - handler.getGameCamera().getyOffset()),
-                    iArea.width,
-                    iArea.height);
+//        g.setColor(Color.green);
+//        g.drawRect( (int) (iArea.x - handler.getGameCamera().getxOffset()),
+//                    (int) (iArea.y - handler.getGameCamera().getyOffset()),
+//                    iArea.width,
+//                    iArea.height);
         //Model del jugador
         g.drawImage(getCurrentAnimationFrame(), 
                            (int) (x - handler.getGameCamera().getxOffset()), 

@@ -188,27 +188,28 @@ public class Ghost01 extends Creature {
     @Override
     public void render(Graphics g) {
         //Area de interaccio
-        g.setColor(Color.green);
-        g.drawRect( (int) (vArea.x - handler.getGameCamera().getxOffset()),
-                    (int) (vArea.y - handler.getGameCamera().getyOffset()),
-                    vArea.width,
-                    vArea.height);
+//        g.setColor(Color.green);
+//        g.drawRect( (int) (vArea.x - handler.getGameCamera().getxOffset()),
+//                    (int) (vArea.y - handler.getGameCamera().getyOffset()),
+//                    vArea.width,
+//                    vArea.height);
         //Area de damage
-        g.setColor(Color.blue);
-        g.drawRect( (int) (dArea.x - handler.getGameCamera().getxOffset()),
-                    (int) (dArea.y - handler.getGameCamera().getyOffset()),
-                    dArea.width,
-                    dArea.height);
+//        g.setColor(Color.blue);
+//        g.drawRect( (int) (dArea.x - handler.getGameCamera().getxOffset()),
+//                    (int) (dArea.y - handler.getGameCamera().getyOffset()),
+//                    dArea.width,
+//                    dArea.height);
         
         g.drawImage(getCurrentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
         
-        Text.drawString(g,
-                       "< "+ stand + " >", 
-                       (int) (x + (Tile.TILEWIDTH/2) - handler.getGameCamera().getxOffset()), 
-                       (int) (y - 20 - handler.getGameCamera().getyOffset()), 
-                       true,
-                       Color.white, 
-                       Assets.font15);
+        //Stand
+//        Text.drawString(g,
+//                       "< "+ stand + " >", 
+//                       (int) (x + (Tile.TILEWIDTH/2) - handler.getGameCamera().getxOffset()), 
+//                       (int) (y - 20 - handler.getGameCamera().getyOffset()), 
+//                       true,
+//                       Color.white, 
+//                       Assets.font15);
 
     }
 
