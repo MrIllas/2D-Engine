@@ -15,6 +15,7 @@ public abstract class Entity {
     protected float x, y;
     protected int width, height;
     protected int health;
+    protected int maxHealth;
     protected boolean active = true;
     protected Rectangle bounds;
     protected String name;
@@ -75,7 +76,18 @@ public abstract class Entity {
     public Rectangle getCollisionBounds(float xOffset, float yOffset) {
         return new Rectangle((int) (x + bounds.x + xOffset), (int) (y + bounds.y + yOffset), bounds.width, bounds.height);
     }
-
+    
+    //Others
+    public void heal(int value) {
+        if(health != maxHealth){
+            health = health + value;
+            
+            if(health > maxHealth) {
+                health = maxHealth;
+            }
+        }
+    }
+    
     //GETTES AND SETTERS
     public float getX() {
         return x;
@@ -123,6 +135,14 @@ public abstract class Entity {
 
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
     }
 
     public String getName() {

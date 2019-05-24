@@ -54,7 +54,7 @@ public class World {
         itemManager.tick();
         
         if(entityManager.getPlayer() == null) {
-            System.out.println("Fuck");
+            System.out.println("??");
         }
     }
 
@@ -121,14 +121,14 @@ public class World {
     public ItemManager getItemManager() {
         return itemManager;
     }
-
+    
     public void setItemManager(ItemManager itemManager) {
         this.itemManager = itemManager;
     }
     
     private void end () {
         if(entityManager.getPlayer() == null) {
-            System.out.println("Fuck");
+            System.out.println("??");
         }
     }
 }

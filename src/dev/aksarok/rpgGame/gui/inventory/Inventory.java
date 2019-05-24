@@ -19,6 +19,7 @@ public class Inventory {
     private int invX = 64, invY = 48, invWidth = 512, invHeight = 384, invListCenterX = invX + 171, invListCenterY = invY + invHeight / 2 + 5, invListSpacing = 30;
     private int invImageX = 460, invImageY = 82, invImageWidth = 48, invImageHeight = 64;//452
     private int invCountX = 484, invCountY = 172;
+    private int invDescX = 484, invDescY = 300;
 
     private int selectedItem = 0;
 
@@ -53,6 +54,18 @@ public class Inventory {
         } else if (selectedItem >= inventoryItems.size()) {
             selectedItem = 0;
         }
+        
+        //Trigger l'us del item
+        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER) && !inventoryItems.isEmpty()) {
+            System.out.println("Triggered '"+inventoryItems.get(selectedItem).getName()+"'.");
+            
+            inventoryItems.get(selectedItem).getEffect().tick();
+            
+            inventoryItems.get(selectedItem).setMinusCount(1);
+            if(inventoryItems.get(selectedItem).getCount() <= 0) {
+                inventoryItems.remove(selectedItem);
+            }
+        }
     }
 
     public void render(Graphics g) {
@@ -76,10 +89,21 @@ public class Inventory {
                 Text.drawString(g, inventoryItems.get(selectedItem + i).getName(), invListCenterX, invListCenterY + i * invListSpacing, true, Color.WHITE, Assets.font28);
             }
         }
+        
+        try {
+            Item item = inventoryItems.get(selectedItem);
 
-        Item item = inventoryItems.get(selectedItem);
-        g.drawImage(item.getTexture(), invImageX, invImageY, invImageWidth, invImageHeight, null);
-        Text.drawString(g, Integer.toString(item.getCount()), invCountX, invCountY, true, Color.WHITE, Assets.font28);
+            //Imatge
+            g.drawImage(item.getTexture(), invImageX, invImageY, invImageWidth, invImageHeight, null);
+            //Numero de unitats
+            Text.drawString(g, Integer.toString(item.getCount()), invCountX, invCountY, true, Color.WHITE, Assets.font28);
+            //Descripcion
+            Text.drawString(g, item.getDescription(), invDescX, invDescY, true, Color.WHITE, Assets.font20);
+            //Feedback text
+            Text.drawString(g, "Press 'Enter' to use", 484, 400, true, Color.WHITE, Assets.font15);
+        } catch(java.lang.IndexOutOfBoundsException ex) {
+            
+        }
     }
 
     //INVENTORY METHODS

@@ -6,13 +6,15 @@ import java.awt.image.BufferedImage;
 
 import dev.aksarok.rpgGame.Handler;
 import dev.aksarok.rpgGame.gfx.Assets;
+import dev.aksarok.rpgGame.items.effects.ItemEffect;
+import static dev.aksarok.rpgGame.items.effects.ItemEffect.itemEffects;
 
 public class Item {
 
     //HANDLER
     public static Item[] items = new Item[256];
-    public static Item redPotionItem = new Item(Assets.itm_redPotion, "Red Potion", 0),
-                       bluePotionItem = new Item(Assets.itm_bluePotion, "Blue Potion", 1);
+    public static Item redPotionItem = new Item(Assets.itm_redPotion, "Red Potion", itemEffects[0], "Heals 2.", 0),
+                       bluePotionItem = new Item(Assets.itm_bluePotion, "Blue Potion", itemEffects[1], "Heals 4.", 1);
 
     //Class
     public static final int ITEMWIDTH = 16, ITEMHEIGHT = 32;
@@ -20,6 +22,8 @@ public class Item {
     protected Handler handler;
     protected BufferedImage texture;
     protected String name;
+    protected String description;
+    protected ItemEffect effect;
     protected final int id;
 
     protected int x, y, count;
@@ -27,10 +31,12 @@ public class Item {
 
     protected Rectangle bounds;
 
-    public Item(BufferedImage texture, String name, int id) {
+    public Item(BufferedImage texture, String name, ItemEffect effect, String description, int id) {
         this.texture = texture;
         this.name = name;
         this.id = id;
+        this.effect = effect;
+        this.description = description;
         count = 1;
 
         bounds = new Rectangle(x, y, ITEMWIDTH, ITEMHEIGHT);
@@ -57,14 +63,14 @@ public class Item {
     }
 
     public Item createNew(int count) {
-        Item i = new Item(texture, name, id);
+        Item i = new Item(texture, name, effect, description, id);
         i.setPickedUp(true);
         i.setCount(count);
         return i;
     }
 
     public Item createNew(int x, int y) {
-        Item i = new Item(texture, name, id);
+        Item i = new Item(texture, name, effect, description, id);
         i.setPosition(x, y);
         return i;
     }
@@ -75,7 +81,7 @@ public class Item {
         bounds.x = x;
         bounds.y = y;
     }
-
+    
     //GETTERS AND SETTERS
     public Handler getHandler() {
         return handler;
@@ -101,6 +107,22 @@ public class Item {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public ItemEffect getEffect() {
+        return effect;
+    }
+
+    public void setEffect(ItemEffect effect) {
+        this.effect = effect;
+    }
+
     public int getX() {
         return x;
     }
@@ -123,6 +145,10 @@ public class Item {
 
     public void setCount(int count) {
         this.count = count;
+    }
+    
+    public void setMinusCount(int value) {
+        this.count = count - value;
     }
 
     public int getId() {

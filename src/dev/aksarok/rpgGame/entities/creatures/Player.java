@@ -36,6 +36,7 @@ public class Player extends Creature {
         
         //STATS
         health = 10;
+        maxHealth = 10;
         //
         
         bounds.x = 0;
