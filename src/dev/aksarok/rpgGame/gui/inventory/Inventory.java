@@ -56,6 +56,7 @@ public class Inventory {
         }
         
         //Trigger l'us del item
+        if(inventoryItems.get(selectedItem).getEffect() == null) { return; }
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER) && !inventoryItems.isEmpty()) {
             System.out.println("Triggered '"+inventoryItems.get(selectedItem).getName()+"'.");
             
@@ -100,6 +101,7 @@ public class Inventory {
             //Descripcion
             Text.drawString(g, item.getDescription(), invDescX, invDescY, true, Color.WHITE, Assets.font20);
             //Feedback text
+            if(inventoryItems.get(selectedItem).getEffect() == null) { return; } 
             Text.drawString(g, "Press 'Enter' to use", 484, 400, true, Color.WHITE, Assets.font15);
         } catch(java.lang.IndexOutOfBoundsException ex) {
             

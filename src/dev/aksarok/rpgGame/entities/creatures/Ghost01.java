@@ -36,7 +36,20 @@ public class Ghost01 extends Creature {
     private long lastAttackTimer, attackCooldown = 500, attackTimer = attackCooldown;
     
     //STATS
-    public static int health = 4;
+    
+    //HealthBar
+    private Boolean showHealthBar = false;
+    private Animation healthAnim;
+    private int hBarBaseX = (int) (x + (Tile.TILEWIDTH/2) - handler.getGameCamera().getxOffset()),
+                hBarBaseY = (int) (y - 20 - handler.getGameCamera().getyOffset()), 
+                hBarBaseWidth = 107 * 1, 
+                hBarBaseHeight = 14 * 1;
+    private int hBarVidaX = hBarBaseX,
+                hBarVidaY = hBarBaseY, 
+                hBarVidaHeight = hBarBaseHeight, 
+                hBarBaseVida = 107 * 1,
+                hBarVidaWidth = hBarBaseVida;
+    protected long time = 5000, lastTime;
     
     public Ghost01(Handler handler, float x, float y) {
         super(handler, "Ghost", x, y, 32, 64);
@@ -46,6 +59,8 @@ public class Ghost01 extends Creature {
         bounds.width = width;
         bounds.height = height / 2;
         speed = 1.2f;
+        health = 4;
+        maxHealth = 4;
         
         //Animations
         animDown = new Animation(500, Assets.ghost01_down, true);
@@ -53,6 +68,8 @@ public class Ghost01 extends Creature {
         animRight = new Animation(500, Assets.ghost01_right, true);
         animLeft = new Animation(500, Assets.ghost01_left, true);
         animStand = new Animation(500, Assets.ghost01_down, true);
+        
+        healthAnim = new Animation(500, Assets.healthBarFull, false);
     }
 
     @Override
@@ -61,6 +78,8 @@ public class Ghost01 extends Creature {
         animUp.tick();
         animRight.tick();
         animLeft.tick();
+        
+        healthAnim.tick();
         
         //Visio
         checkVision();
@@ -78,6 +97,47 @@ public class Ghost01 extends Creature {
         }
         move();
         checkAttacks();
+    }
+    
+    private void renderHealthBar(Graphics g) {
+        if(showHealthBar == false) { return;}
+        
+        if(time == 0) { return; }
+        else { time -= 100;}
+        
+        hBarBaseWidth = (hBarBaseVida/10) * maxHealth ;
+        
+        hBarBaseX = (int) (x - handler.getGameCamera().getxOffset() - 3);
+        hBarBaseY = (int) (y - 20 - handler.getGameCamera().getyOffset());
+        hBarVidaX = hBarBaseX;
+        hBarVidaY = hBarBaseY;
+        
+        //Base vida buida
+        g.drawImage(Assets.healthBar[1].getSubimage(0, 0,  maxHealth * 9, Assets.healthBar[1].getHeight()), hBarBaseX, hBarBaseY, hBarBaseWidth, hBarBaseHeight, null);
+        
+        //Vida vida
+        g.drawImage(divideHealth(), hBarVidaX, hBarVidaY, hBarVidaWidth, hBarVidaHeight, null);
+    }
+    
+    private BufferedImage divideHealth() {
+        BufferedImage toReturn;
+        int dif = 0;
+        
+        if(health == 1) {
+            dif = health * 10; 
+        }
+        else if (health == 0){
+            dif = 1;
+        }
+        else {
+            dif = health * 9;
+        }
+        
+        hBarVidaWidth = (hBarBaseVida/10) * health;
+        
+        toReturn = healthAnim.getCurrentFrame().getSubimage(0, 0,  dif, healthAnim.getCurrentFrame().getHeight());
+
+        return toReturn;
     }
     
     private void checkAttacks() {
@@ -210,6 +270,7 @@ public class Ghost01 extends Creature {
 //                       true,
 //                       Color.white, 
 //                       Assets.font15);
+        renderHealthBar(g);
 
     }
 
@@ -217,6 +278,16 @@ public class Ghost01 extends Creature {
     public void die() {
         int[] item = {0, 1};
         deadthDrop(2, 1, item);
+    }
+    @Override
+    public void hurt(int amt) {
+        showHealthBar = true;
+        time = 20000;
+        health -= amt;
+        if (health <= 0) {
+            active = false;
+            die();
+        }
     }
     
     private BufferedImage getCurrentAnimationFrame() {
