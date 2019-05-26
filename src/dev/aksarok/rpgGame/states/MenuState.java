@@ -9,6 +9,7 @@ import static dev.aksarok.rpgGame.Launcher.*;
 import static dev.aksarok.rpgGame.Game.*;
 import dev.aksarok.rpgGame.gfx.Animation;
 import dev.aksarok.rpgGame.gfx.Assets;
+import dev.aksarok.rpgGame.gfx.SoundEffect;
 import dev.aksarok.rpgGame.gfx.Text;
 import dev.aksarok.rpgGame.gui.UIImageButton;
 import dev.aksarok.rpgGame.gui.UIManager;
@@ -21,10 +22,14 @@ public class MenuState extends State {
     
     
     public MenuState(Handler handler) {
-        
         super(handler);
         uiManager = new UIManager(handler);
         handler.getMouseManager().setUIManager(uiManager);
+        
+        SoundEffect snd_music = new SoundEffect("res/music/Celestial.wav", 1);
+        //snd_music.setVolume(1);
+        snd_music.loopSound();
+        
         
         //Background
         uiManager.addObject(new UIAnimated(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, Assets.bg_start_menu, 200));
@@ -45,6 +50,8 @@ public class MenuState extends State {
                 if(handler.getGame().gameState.getWorld().getEntityManager().getPlayer().getHealth() == 0) {
                     handler.getGame().gameState.getWorld().getEntityManager().getPlayer().setHealth(10);
                     handler.getGame().gameState.getWorld().getEntityManager().getPlayer().setActive(true);
+                    handler.getGame().gameState.getWorld().getEntityManager().getPlayer().setX(600);
+                    handler.getGame().gameState.getWorld().getEntityManager().getPlayer().setY(600);
                 }
                 State.setState(handler.getGame().gameState);
             }

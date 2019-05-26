@@ -54,19 +54,20 @@ public class Inventory {
         } else if (selectedItem >= inventoryItems.size()) {
             selectedItem = 0;
         }
-        
+
         //Trigger l'us del item
-        if(inventoryItems.get(selectedItem).getEffect() == null) { return; }
-        if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER) && !inventoryItems.isEmpty()) {
-            System.out.println("Triggered '"+inventoryItems.get(selectedItem).getName()+"'.");
-            
+        if (inventoryItems.isEmpty()) { return;}
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER) && !inventoryItems.isEmpty()) {
+            System.out.println("Triggered '" + inventoryItems.get(selectedItem).getName() + "'.");
+
             inventoryItems.get(selectedItem).getEffect().tick();
-            
+
             inventoryItems.get(selectedItem).setMinusCount(1);
-            if(inventoryItems.get(selectedItem).getCount() <= 0) {
+            if (inventoryItems.get(selectedItem).getCount() <= 0) {
                 inventoryItems.remove(selectedItem);
             }
         }
+
     }
 
     public void render(Graphics g) {
@@ -90,7 +91,7 @@ public class Inventory {
                 Text.drawString(g, inventoryItems.get(selectedItem + i).getName(), invListCenterX, invListCenterY + i * invListSpacing, true, Color.WHITE, Assets.font28);
             }
         }
-        
+
         try {
             Item item = inventoryItems.get(selectedItem);
 
@@ -101,10 +102,12 @@ public class Inventory {
             //Descripcion
             Text.drawString(g, item.getDescription(), invDescX, invDescY, true, Color.WHITE, Assets.font20);
             //Feedback text
-            if(inventoryItems.get(selectedItem).getEffect() == null) { return; } 
+            if (inventoryItems.get(selectedItem).getEffect() == null) {
+                return;
+            }
             Text.drawString(g, "Press 'Enter' to use", 484, 400, true, Color.WHITE, Assets.font15);
-        } catch(java.lang.IndexOutOfBoundsException ex) {
-            
+        } catch (java.lang.IndexOutOfBoundsException ex) {
+
         }
     }
 

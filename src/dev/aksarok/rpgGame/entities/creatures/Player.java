@@ -16,40 +16,45 @@ import dev.aksarok.rpgGame.states.State;
 public class Player extends Creature {
 
     //ANIMATION
-    private Animation animDown, animUp, animRight, animLeft, animStand;
+    private Animation animDown, animUp, animRight, animLeft, animStand,
+            animAttDown, animAttUp, animAttRight, animAttLeft;
     private BufferedImage lastImg = new Animation(500, Assets.player_down, true).getSpecificFrame(2);
-    
+
     //ATACK TIMER
-    private long lastAttackTimer, attackCooldown = 100, attackTimer = attackCooldown;
+    private long lastAttackTimer, attackCooldown = 600, attackTimer = attackCooldown;
 
     //GUI
     private Inventory inventory;
     private FeedBack feedBack;
-    
+
     //STATS
     public static int tarjetHealth = 0;
     public static String tarjetName = "";
     public static String interactName = "";
 
     public Player(Handler handler, String name, float x, float y) {
-        super(handler, name, x, y, 32, 64);
-        
+        super(handler, name, x, y, 32, 64); //32/64/192
+
         //STATS
         health = 10;
         maxHealth = 10;
         //
-        
+
         bounds.x = 0;
         bounds.y = 32;
         bounds.width = width;
         bounds.height = height / 2;
 
         //ANIMATIONS
-        animDown = new Animation(500, Assets.player_down, true);
-        animUp = new Animation(500, Assets.player_up, true);
-        animRight = new Animation(500, Assets.player_right, true);
-        animLeft = new Animation(500, Assets.player_left, true);
-        animStand = new Animation(500, Assets.player_down, true);
+        animDown = new Animation(50, Assets.player_down, true);
+        animUp = new Animation(50, Assets.player_up, true);
+        animRight = new Animation(50, Assets.player_right, true);
+        animLeft = new Animation(50, Assets.player_left, true);
+        animStand = new Animation(50, Assets.player_down, true);
+        animAttDown = new Animation(100, Assets.player_attDown, true);
+        animAttUp = new Animation(100, Assets.player_attUp, true);
+        animAttRight = new Animation(100, Assets.player_attRight, true);
+        animAttLeft = new Animation(100, Assets.player_attLeft, true);
 
         inventory = new Inventory(handler);
         feedBack = new FeedBack(handler);
@@ -62,16 +67,20 @@ public class Player extends Creature {
         animUp.tick();
         animRight.tick();
         animLeft.tick();
+        animAttDown.tick();
+        animAttUp.tick();
+        animAttLeft.tick();
+        animAttRight.tick();
 
         //MOVEMENT
         getInput();
         move();
         handler.getGameCamera().centerOnEntity(this);
-        
+
         //ATACK
         checkAttacks();
         checkInteraction();
-        
+
         //INVENTORY
         inventory.tick();
 
@@ -86,7 +95,7 @@ public class Player extends Creature {
     private void checkAttacks() {
         attackTimer += System.currentTimeMillis() - lastAttackTimer;
         lastAttackTimer = System.currentTimeMillis();
-        
+
         if (attackTimer < attackCooldown) {
             return;
         }
@@ -98,8 +107,9 @@ public class Player extends Creature {
         ar = new Rectangle();
         int arWidth = bounds.width;
         int arHeight = bounds.height;
-        ar.width = 20;
-        ar.height = 20;
+        ar.width = 20 * 3;
+        ar.height = 20 * 3;
+
 
         if (handler.getKeyManager().aUp) {
             ar.x = cb.x + cb.width / 2 - ar.width / 2; //Agafa el punt mitj
@@ -116,18 +126,20 @@ public class Player extends Creature {
         } else {
             return;
         }
-
+        
         attackTimer = 0;
 
         for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
-            
+
             //Mira si se puede dañar o no
-            if(e.isIsDestructible() != true) { continue; }
-            
+            if (e.isIsDestructible() != true) {
+                continue;
+            }
+
             if (e.equals(this)) {
                 continue;
             }
-            
+
             if (e.getCollisionBounds(0, 0).intersects(ar)) {
                 e.hurt(1);
                 tarjetHealth = e.getHealth();
@@ -136,33 +148,36 @@ public class Player extends Creature {
             }
         }
     }
-    
-    private Rectangle iArea; 
-    
+
+    private Rectangle iArea;
+
     private void interactArea() {
         cb = getCollisionBounds(0, 0);
-        iArea = getCollisionBounds(0,0);
+        iArea = getCollisionBounds(0, 0);
         iArea = new Rectangle();
         iArea.width = bounds.width * 3;
         iArea.height = bounds.height * 3;
         iArea.x = cb.x + cb.width / 2 - iArea.width / 2;
         iArea.y = cb.y + cb.width / 2 - iArea.height / 2;
     }
-    
+
     private void checkInteraction() {
-        
+
         interactArea();
-        for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
-            
-            if(e.getCollisionBounds(0, 0).intersects(iArea)) {
-                if(e.isIsInteractable() == false) { continue;}
-                if(e.equals(this)) { continue; }
-                
+        for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
+
+            if (e.getCollisionBounds(0, 0).intersects(iArea)) {
+                if (e.isIsInteractable() == false) {
+                    continue;
+                }
+                if (e.equals(this)) {
+                    continue;
+                }
+
                 interactName = e.getName();
-                
+
                 e.setPrintFeed(true);
-            }
-            else {
+            } else {
                 e.setPrintFeed(false);
             }
         }
@@ -204,25 +219,39 @@ public class Player extends Creature {
 //                    iArea.width,
 //                    iArea.height);
         //Model del jugador
-        g.drawImage(getCurrentAnimationFrame(), 
-                           (int) (x - handler.getGameCamera().getxOffset()), 
-                           (int) (y - handler.getGameCamera().getyOffset()), 
-                           width, 
-                           height, 
-                           null);
+        if (handler.getKeyManager().aUp || handler.getKeyManager().aDown
+                || handler.getKeyManager().aLeft || handler.getKeyManager().aRight) {
+            width = 192;
+            height = 192;
+            g.drawImage(getCurrentAnimationFrame(),
+                    (int) (x - width / 3 - handler.getGameCamera().getxOffset()),
+                    (int) (y - height / 3 - handler.getGameCamera().getyOffset()),
+                    width,
+                    height,
+                    null);
+        } else {
+            width = 32;
+            height = 64;
+            g.drawImage(getCurrentAnimationFrame(),
+                    (int) (x - handler.getGameCamera().getxOffset()),
+                    (int) (y - handler.getGameCamera().getyOffset()),
+                    width,
+                    height,
+                    null);
+        }
+
         //Descomentar per veura la collision box
 //        g.setColor(Color.red);
 //        g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()), 
 //                   (int) (y + bounds.y - handler.getGameCamera().getyOffset()), 
 //                    bounds.width, 
 //                    bounds.height);
-        
         //COS COS
-        g.setColor(Color.blue);
-        g.fillRect((int) (ar.x - handler.getGameCamera().getxOffset()), 
-                    (int) (ar.y - handler.getGameCamera().getyOffset()), 
-                    ar.width, 
-                    ar.height);
+//        g.setColor(Color.blue);
+//        g.fillRect((int) (ar.x - handler.getGameCamera().getxOffset()), 
+//                    (int) (ar.y - handler.getGameCamera().getyOffset()), 
+//                    ar.width, 
+//                    ar.height);
     }
 
     public void postRender(Graphics g) {
@@ -234,23 +263,30 @@ public class Player extends Creature {
     }
 
     private BufferedImage getCurrentAnimationFrame() {
-
-        if (xMove < 0) {
-            lastImg = animLeft.getSpecificFrame(2);
+        if (handler.getKeyManager().aUp) {
+            return animAttUp.getCurrentFrame();
+        } else if (handler.getKeyManager().aDown) {
+            return animAttDown.getCurrentFrame();
+        } else if (handler.getKeyManager().aLeft) {
+            return animAttLeft.getCurrentFrame();
+        } else if (handler.getKeyManager().aRight) {
+            return animAttRight.getCurrentFrame();
+        } else if (xMove < 0) {
+            lastImg = animLeft.getSpecificFrame(8);//8
             return animLeft.getCurrentFrame();
         } else if (xMove > 0) {
-            lastImg = animRight.getSpecificFrame(2);
+            lastImg = animRight.getSpecificFrame(8);
             return animRight.getCurrentFrame();
         } else if (yMove < 0) {
-            lastImg = animUp.getSpecificFrame(2);
+            lastImg = animUp.getSpecificFrame(8);
             return animUp.getCurrentFrame();
         } else if (yMove > 0) {
-            lastImg = animDown.getSpecificFrame(2);
+            lastImg = animDown.getSpecificFrame(8);
             return animDown.getCurrentFrame();
         }
         return lastImg;
     }
-    
+
     //GETTERS AND SETTERS
     public Inventory getInventory() {
         return inventory;
@@ -259,7 +295,7 @@ public class Player extends Creature {
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
     }
-    
+
     public int getHealth() {
         return health;
     }

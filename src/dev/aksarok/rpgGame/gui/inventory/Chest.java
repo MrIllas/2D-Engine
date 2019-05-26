@@ -58,6 +58,7 @@ public class Chest {
         }
         
         //Trigger agafar l'item
+        if (inventoryItems.isEmpty()) { return;}
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER) && !inventoryItems.isEmpty()) {
             System.out.println("Triggered '"+inventoryItems.get(selectedItem).getName()+"'.");
             inventoryItems.get(selectedItem).getEffect().setHandler(handler);
