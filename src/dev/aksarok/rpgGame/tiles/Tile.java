@@ -13,6 +13,9 @@ public class Tile {
     public static Tile wall01Tile = new Wall01Tile(2);
     public static Tile wall02Tile = new Wall02Tile(3);
     public static Tile wall03Tile = new Wall03Tile(4);
+    public static Tile wall01Top = new Wall01Top(5);
+    public static Tile wall02Top = new Wall02Top(6);
+    public static Tile wall03Top = new Wall03Top(7);
 
     public static Tile floorStone1 = new FloorStone1(21);
     public static Tile floorStone2 = new FloorStone2(22);
@@ -35,9 +38,9 @@ public class Tile {
     public static Tile stairs2 = new Stairs2(45);
     public static Tile stairs3 = new Stairs3(46);
     public static Tile stairs4 = new Stairs4(47);
-    
+
     public static Tile scull = new Scull(48);
-    
+
     public static Tile topFountain = new TopFountain(50);
     public static Tile midFRed = new MidFRed(51);
     public static Tile midFGreen = new MidFGreen(52);
@@ -47,7 +50,6 @@ public class Tile {
     public static Tile botFBlue = new BotFBlue(56);
     //CLASS
 
-    
     public static final int TILEWIDTH = 32, TILEHEIGHT = 32;
 
     protected BufferedImage texture;
@@ -67,8 +69,8 @@ public class Tile {
 
     public void render(Graphics g, int x, int y) {
         if (background != null) {
-                    g.drawImage(background, x, y, TILEWIDTH, TILEHEIGHT, null);
-                }
+            g.drawImage(background, x, y, TILEWIDTH, TILEHEIGHT, null);
+        }
         g.drawImage(texture, x, y, TILEWIDTH, TILEHEIGHT, null);
 
     }
