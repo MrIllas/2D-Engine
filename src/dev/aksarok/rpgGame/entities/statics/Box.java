@@ -23,6 +23,7 @@ public class Box extends StaticEntity {
         bounds.height = (int) (height - height / 2.2f);
         isDestructible = true;
         isInteractable = false;
+        health = 5;
     }
 
     @Override

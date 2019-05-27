@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import dev.aksarok.rpgGame.Handler;
 import dev.aksarok.rpgGame.entities.EntityManager;
+import dev.aksarok.rpgGame.entities.TeleportTile;
 import dev.aksarok.rpgGame.entities.creatures.Ghost01;
 import dev.aksarok.rpgGame.entities.creatures.Player;
 import dev.aksarok.rpgGame.entities.statics.Box;
@@ -29,9 +30,13 @@ public class World {
         this.handler = handler;
         entityManager = new EntityManager(handler, new Player(handler, "Player", 300, 400));
         itemManager = new ItemManager(handler);
+        entityManager.addEntity(new Ghost01(handler, 256, 96));
+        
+        entityManager.addEntity(new Box(handler, 288, 768));
+        entityManager.addEntity(new Box(handler, 288 + 32, 768));
+        entityManager.addEntity(new Box(handler, 384, 1056 - 32));
+        entityManager.addEntity(new Ghost01(handler, 384 - 32, 1056));
         /*
-        entityManager.addEntity(new Box(handler, 450, 400));
-        entityManager.addEntity(new Box(handler, 482, 400));
         entityManager.addEntity(new Box(handler, 514, 400));
         entityManager.addEntity(new Box(handler, 450, 452));
         entityManager.addEntity(new Box(handler, 482, 452));

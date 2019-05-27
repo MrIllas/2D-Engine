@@ -76,7 +76,7 @@ public class MenuState extends State {
     @Override
     public void render(Graphics g) {
         uiManager.render(g);
-        Text.drawString(g, "Version Alpha 0.0.1 Snapshot 30a", SCREEN_WIDTH - 170, SCREEN_HEIGHT - 7, true, Color.white, Assets.font15);
+        Text.drawString(g, "Version Alpha 0.0.3 Snapshot 1b", SCREEN_WIDTH - 170, SCREEN_HEIGHT - 7, true, Color.white, Assets.font15);
         /*g.setColor(Color.RED);
 		g.fillRect(handler.getMouseManager().getMouseX() - 4, handler.getMouseManager().getMouseY() - 4, 8, 8);*/
     }
