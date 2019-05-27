@@ -12,14 +12,16 @@ public class Assets {
     public static BufferedImage dungeonFloor, box, darkZone, wall01, wall02, wall03;
     public static BufferedImage topWall1, topWall2, topWall3;
     public static BufferedImage itm_redPotion, itm_bluePotion;
-    public static BufferedImage[] player_down, player_up, player_right, player_left;
+    public static BufferedImage[] player_down, player_up, player_right, player_left,
+                                  player_attDown, player_attUp, player_attRight, player_attLeft;
     public static BufferedImage[] ghost01_down, ghost01_up, ghost01_right, ghost01_left;
     public static BufferedImage[] btn_start, bg_start_menu, theTitle;
 
     public static BufferedImage[] ent_box;
     public static BufferedImage[] ent_chest01, ent_chest02;
     public static BufferedImage inventoryScreen;
-
+    public static BufferedImage[] healthBar, healthBarFull;
+    
     //
     public static BufferedImage floorStone1, floorStone2, floorStone3, floorStone4, floorStone5, floorStone6, floorStone7, floorStone8, floorStone9, floorStone10, floorStone11, floorStone12;
     public static BufferedImage topColumn, midColumn, botColumn;
@@ -34,13 +36,12 @@ public class Assets {
         font15 = FontLoader.loadFont("res/fonts/slkscr.ttf", 15);
 
         SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/0x72_16x16DungeonTileset.v4.png"));
-        SpriteSheet playerSheet = new SpriteSheet(ImageLoader.loadImage("/sprites/reaper_1.png"));
+        SpriteSheet playerSheet = new SpriteSheet(ImageLoader.loadImage("/sprites/knight.png"));
         SpriteSheet ghost01Sheet = new SpriteSheet(ImageLoader.loadImage("/sprites/ghost1.png"));
         SpriteSheet potionSheet = new SpriteSheet(ImageLoader.loadImage("/textures/witchtiles_3.png"));
         SpriteSheet inventoryScreenSheet = new SpriteSheet(ImageLoader.loadImage("/gui/inventoryScreen.png"));
-
+        SpriteSheet healthBarsSheet = new SpriteSheet(ImageLoader.loadImage("/gui/healthBars.png"));
         //GUI SHEET
-        SpriteSheet bgSheet = new SpriteSheet(ImageLoader.loadImage("/gui/bg_start_menu.jpg"));
         SpriteSheet btn_longBlue = new SpriteSheet(ImageLoader.loadImage("/gui/buttonLong_blue.png"));
         SpriteSheet btn_longBlue2 = new SpriteSheet(ImageLoader.loadImage("/gui/buttonLong_blue_pressed.png"));
 
@@ -55,8 +56,16 @@ public class Assets {
         //ITEMS
         itm_redPotion = potionSheet.crop(297, 102, 26, 35);
         itm_bluePotion = potionSheet.crop(345, 102, 26, 35);
-
+        
         //GUI
+        healthBar = new BufferedImage[2];
+        healthBar[0] = healthBarsSheet.crop(0, 0, 107, 14);//Base x y w h
+        healthBar[1] = healthBarsSheet.crop(0, 43, 91, 7);//Vida buida
+        healthBarFull = new BufferedImage[2];
+        //healthBarFull[0] = healthBarsSheet.crop(0, 34, 91, 7);//Vida full 1
+        healthBarFull[0] = healthBarsSheet.crop(0, 25, 91, 7);//Vida full 2
+        healthBarFull[1] = healthBarsSheet.crop(0, 16, 91, 7);//Vida full 3
+        
         inventoryScreen = inventoryScreenSheet.crop(0, 0, inventoryScreenSheet.getImgWidth(), inventoryScreenSheet.getImgHeight());
 
         theTitle = new BufferedImage[1];
@@ -74,24 +83,90 @@ public class Assets {
         btn_start[1] = btn_longBlue2.crop(0, 0, btn_longBlue2.getImgWidth(), btn_longBlue2.getImgHeight());
 
         //ENTITES
-        player_down = new BufferedImage[3];
-        player_up = new BufferedImage[3];
-        player_right = new BufferedImage[3];
-        player_left = new BufferedImage[3];
+        player_down = new BufferedImage[9];
+        player_up = new BufferedImage[9];
+        player_right = new BufferedImage[9];
+        player_left = new BufferedImage[9];
+        player_attDown = new BufferedImage[6];
+        player_attUp = new BufferedImage[6];
+        player_attRight = new BufferedImage[6];
+        player_attLeft = new BufferedImage[6];
 
-        player_down[0] = playerSheet.crop(5, 6, width, unitHeight);
-        player_down[1] = playerSheet.crop(56, 6, width, unitHeight);
-        player_down[2] = playerSheet.crop(30, 6, width, unitHeight);//Stand
-        player_up[0] = playerSheet.crop(5, 112, width, unitHeight); //114 y
-        player_up[1] = playerSheet.crop(56, 112, width, unitHeight);
-        player_up[2] = playerSheet.crop(30, 112, width, unitHeight);//Stand
-        player_left[0] = playerSheet.crop(5, 42, width, unitHeight);
-        player_left[1] = playerSheet.crop(56, 42, width, unitHeight);
-        player_left[2] = playerSheet.crop(30, 42, width, unitHeight);//Stand
-        player_right[0] = playerSheet.crop(5, 78, width, unitHeight);
-        player_right[1] = playerSheet.crop(56, 78, width, unitHeight);
-        player_right[2] = playerSheet.crop(30, 78, width, unitHeight);//Stand
-
+//        player_down[0] = playerSheet.crop(5, 6, width, unitHeight);
+//        player_down[1] = playerSheet.crop(56, 6, width, unitHeight);
+//        player_down[2] = playerSheet.crop(30, 6, width, unitHeight);//Stand
+//        player_up[0] = playerSheet.crop(5, 112, width, unitHeight); //114 y
+//        player_up[1] = playerSheet.crop(56, 112, width, unitHeight);
+//        player_up[2] = playerSheet.crop(30, 112, width, unitHeight);//Stand
+//        player_left[0] = playerSheet.crop(5, 42, width, unitHeight);
+//        player_left[1] = playerSheet.crop(56, 42, width, unitHeight);
+//        player_left[2] = playerSheet.crop(30, 42, width, unitHeight);//Stand
+//        player_right[0] = playerSheet.crop(5, 78, width, unitHeight);
+//        player_right[1] = playerSheet.crop(56, 78, width, unitHeight);
+//        player_right[2] = playerSheet.crop(30, 78, width, unitHeight);//Stand
+        
+        player_down[8] = playerSheet.crop(16, 640, 32, 64);//Stand
+        player_down[7] = playerSheet.crop(16+64, 640, 32, 64);
+        player_down[6] = playerSheet.crop(16+64*2, 640, 32, 64);
+        player_down[5] = playerSheet.crop(16+64*3, 640, 32, 64);
+        player_down[4] = playerSheet.crop(16+64*4, 640, 32, 64);
+        player_down[3] = playerSheet.crop(16+64*5, 640, 32, 64);
+        player_down[2] = playerSheet.crop(16+64*6, 640, 32, 64);
+        player_down[1] = playerSheet.crop(16+64*7, 640, 32, 64);
+        player_down[0] = playerSheet.crop(16+64*8, 640, 32, 64);
+        player_up[8] = playerSheet.crop(16, 512, 32, 64); //114 y
+        player_up[7] = playerSheet.crop(16+64, 512, 32, 64);
+        player_up[6] = playerSheet.crop(16+64*2, 512, 32, 64);//Stand
+        player_up[5] = playerSheet.crop(16+64*3, 512, 32, 64);
+        player_up[4] = playerSheet.crop(16+64*4, 512, 32, 64);
+        player_up[3] = playerSheet.crop(16+64*5, 512, 32, 64);
+        player_up[2] = playerSheet.crop(16+64*6, 512, 32, 64);
+        player_up[1] = playerSheet.crop(16+64*7, 512, 32, 64);
+        player_up[0] = playerSheet.crop(16+64*8, 512, 32, 64);
+        player_left[8] = playerSheet.crop(16, 576, 32, 64);
+        player_left[7] = playerSheet.crop(16+64, 576, 32, 64);
+        player_left[6] = playerSheet.crop(16+64*2, 576, 32, 64);//Stand
+        player_left[5] = playerSheet.crop(16+64*3, 576, 32, 64);
+        player_left[4] = playerSheet.crop(16+64*4, 576, 32, 64);
+        player_left[3] = playerSheet.crop(16+64*5, 576, 32, 64);
+        player_left[2] = playerSheet.crop(16+64*6, 576, 32, 64);
+        player_left[1] = playerSheet.crop(16+64*7, 576, 32, 64);
+        player_left[0] = playerSheet.crop(16+64*8, 576, 32, 64);
+        player_right[8] = playerSheet.crop(16, 704, 32, 64);
+        player_right[7] = playerSheet.crop(16+64, 704, 32, 64);
+        player_right[6] = playerSheet.crop(16+64*2, 704, 32, 64);//Stand
+        player_right[5] = playerSheet.crop(16+64*3, 704, 32, 64);
+        player_right[4] = playerSheet.crop(16+64*4, 704, 32, 64);
+        player_right[3] = playerSheet.crop(16+64*5, 704, 32, 64);
+        player_right[2] = playerSheet.crop(16+64*6, 704, 32, 64);
+        player_right[1] = playerSheet.crop(16+64*7, 704, 32, 64);
+        player_right[0] = playerSheet.crop(16+64*8, 704, 32, 64);
+        player_attDown[0] = playerSheet.crop(0, 64 * 27, 192, 192);
+        player_attDown[1] = playerSheet.crop(192 * 2, 64 * 27, 192, 192);
+        player_attDown[2] = playerSheet.crop(192 * 3, 64 * 27, 192, 192);
+        player_attDown[3] = playerSheet.crop(192 * 4, 64 * 27, 192, 192);
+        player_attDown[4] = playerSheet.crop(192 * 5, 64 * 27, 192, 192);
+        player_attDown[5] = playerSheet.crop(192 * 6, 64 * 27, 192, 192);
+        player_attUp[0] = playerSheet.crop(0, 64 * 21, 192, 192);
+        player_attUp[1] = playerSheet.crop(192 * 2, 64 * 21, 192, 192);
+        player_attUp[2] = playerSheet.crop(192 * 3, 64 * 21, 192, 192);
+        player_attUp[3] = playerSheet.crop(192 * 4, 64 * 21, 192, 192);
+        player_attUp[4] = playerSheet.crop(192 * 5, 64 * 21, 192, 192);
+        player_attUp[5] = playerSheet.crop(192 * 6, 64 * 21, 192, 192);
+        player_attLeft[0] = playerSheet.crop(0, 64 * 24, 192, 192);
+        player_attLeft[1] = playerSheet.crop(192 * 2, 64 * 24, 192, 192);
+        player_attLeft[2] = playerSheet.crop(192 * 3, 64 * 24, 192, 192);
+        player_attLeft[3] = playerSheet.crop(192 * 4, 64 * 24, 192, 192);
+        player_attLeft[4] = playerSheet.crop(192 * 5, 64 * 24, 192, 192);
+        player_attLeft[5] = playerSheet.crop(192 * 6, 64 * 24, 192, 192);
+        player_attRight[0] = playerSheet.crop(0, 64 * 30, 192, 192);
+        player_attRight[1] = playerSheet.crop(192 * 2, 64 * 30, 192, 192);
+        player_attRight[2] = playerSheet.crop(192 * 3, 64 * 30, 192, 192);
+        player_attRight[3] = playerSheet.crop(192 * 4, 64 * 30, 192, 192);
+        player_attRight[4] = playerSheet.crop(192 * 5, 64 * 30, 192, 192);
+        player_attRight[5] = playerSheet.crop(192 * 6, 64 * 30, 192, 192);
+        
+        
         ghost01_down = new BufferedImage[3];
         ghost01_up = new BufferedImage[3];
         ghost01_right = new BufferedImage[3];

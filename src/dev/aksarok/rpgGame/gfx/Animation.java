@@ -45,4 +45,12 @@ public class Animation {
     public BufferedImage getSpecificFrame(int i) {
         return frames[i];
     }
+
+    public boolean isStand() {
+        return stand;
+    }
+
+    public void setStand(boolean stand) {
+        this.stand = stand;
+    }
 }

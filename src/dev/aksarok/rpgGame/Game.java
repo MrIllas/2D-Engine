@@ -35,7 +35,7 @@ public class Game implements Runnable {
     private Graphics g;
 
     //STATES
-    public State gameState;
+    public GameState gameState;
     public State menuState;
 
     //INPUT

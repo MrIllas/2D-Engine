@@ -29,7 +29,7 @@ public class World {
         this.handler = handler;
         entityManager = new EntityManager(handler, new Player(handler, "Player", 300, 400));
         itemManager = new ItemManager(handler);
-
+        /*
         entityManager.addEntity(new Box(handler, 450, 400));
         entityManager.addEntity(new Box(handler, 482, 400));
         entityManager.addEntity(new Box(handler, 514, 400));
@@ -42,7 +42,7 @@ public class World {
         entityManager.addEntity(new Ghost01(handler, 400, 300));
 
         entityManager.addEntity(new Chest01(handler, 600, 600));
-
+        */
         loadWorld(path);
 
         entityManager.getPlayer().setX(spawnX);
@@ -54,7 +54,7 @@ public class World {
         itemManager.tick();
         
         if(entityManager.getPlayer() == null) {
-            System.out.println("Fuck");
+            System.out.println("??");
         }
     }
 
@@ -121,14 +121,14 @@ public class World {
     public ItemManager getItemManager() {
         return itemManager;
     }
-
+    
     public void setItemManager(ItemManager itemManager) {
         this.itemManager = itemManager;
     }
     
     private void end () {
         if(entityManager.getPlayer() == null) {
-            System.out.println("Fuck");
+            System.out.println("??");
         }
     }
 }

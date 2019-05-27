@@ -9,6 +9,7 @@ import static dev.aksarok.rpgGame.Launcher.*;
 import static dev.aksarok.rpgGame.Game.*;
 import dev.aksarok.rpgGame.gfx.Animation;
 import dev.aksarok.rpgGame.gfx.Assets;
+import dev.aksarok.rpgGame.gfx.SoundEffect;
 import dev.aksarok.rpgGame.gfx.Text;
 import dev.aksarok.rpgGame.gui.UIImageButton;
 import dev.aksarok.rpgGame.gui.UIManager;
@@ -21,12 +22,14 @@ public class MenuState extends State {
     
     
     public MenuState(Handler handler) {
-        
-        
-        
         super(handler);
         uiManager = new UIManager(handler);
         handler.getMouseManager().setUIManager(uiManager);
+        
+        SoundEffect snd_music = new SoundEffect("res/music/Celestial.wav", 1);
+        //snd_music.setVolume(1);
+        snd_music.loopSound();
+        
         
         //Background
         uiManager.addObject(new UIAnimated(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, Assets.bg_start_menu, 200));
@@ -43,7 +46,13 @@ public class MenuState extends State {
         uiManager.addObject(new UIImageButton((SCREEN_WIDTH) / 2 -150, 300, 300, 60, Assets.btn_start, "Jugar", 145, 29, new ClickListener() {
             @Override
             public void onClick() {
-                handler.getMouseManager().setUIManager(null);
+                //handler.getMouseManager().setUIManager(null);
+                if(handler.getGame().gameState.getWorld().getEntityManager().getPlayer().getHealth() == 0) {
+                    handler.getGame().gameState.getWorld().getEntityManager().getPlayer().setHealth(10);
+                    handler.getGame().gameState.getWorld().getEntityManager().getPlayer().setActive(true);
+                    handler.getGame().gameState.getWorld().getEntityManager().getPlayer().setX(600);
+                    handler.getGame().gameState.getWorld().getEntityManager().getPlayer().setY(600);
+                }
                 State.setState(handler.getGame().gameState);
             }
         }));
@@ -62,10 +71,6 @@ public class MenuState extends State {
         uiManager.tick();
 
         System.out.println("X: " + handler.getMouseManager().getMouseX() + "||Y: " + handler.getMouseManager().getMouseY());
-        /*if(handler.getMouseManager().isLeftPressed() && handler.getMouseManager().isRightPressed()) {
-			State.setState(handler.getGame().gameState);
-		}*/
-
     }
 
     @Override
