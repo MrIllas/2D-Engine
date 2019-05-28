@@ -19,7 +19,17 @@ public class EntityManager {
 
         @Override
         public int compare(Entity a, Entity b) {
-            if (a.getY() + a.getHeight() > b.getY() + b.getHeight()) {
+            if(a.getClass() == Player.class){
+                if (a.getY() + 64 > b.getY() + b.getHeight()) {
+                    return 1;
+                }
+            }
+            else if (b.getClass() == Player.class) {
+                if (a.getY() + a.getHeight() > b.getY() + 64) {
+                    return 1;
+                }
+            }
+            else if (a.getY() + a.getHeight() > b.getY() + b.getHeight()) {
                 return 1;
             }
             return -1;

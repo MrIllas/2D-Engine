@@ -74,7 +74,7 @@ public class FeedBack {
         g.drawImage(Assets.healthBar[0], hBarBaseX, hBarBaseY, hBarBaseWidth, hBarBaseHeight, null);
     
         //vida vuida
-        g.drawImage(Assets.healthBar[1], hBarVidaX, hBarVidaY, hBarVidaWidth, hBarVidaHeight, null);
+        g.drawImage(Assets.healthBar[1], hBarVidaX, hBarVidaY, 91 * 3, hBarVidaHeight, null);
         
         //Vida vida
         g.drawImage(divideHealth(), hBarVidaX, hBarVidaY, hBarVidaWidth, hBarVidaHeight, null);
