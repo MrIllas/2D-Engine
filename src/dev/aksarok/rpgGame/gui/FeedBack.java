@@ -93,6 +93,8 @@ public class FeedBack {
         
         hBarVidaWidth = (hBarBaseVida/10) * playerHealth ;
         
+        if (dif == 0) { dif = 90;}
+        
         toReturn = healthAnim.getCurrentFrame().getSubimage(0, 0,  dif, healthAnim.getCurrentFrame().getHeight());
         
         return toReturn;

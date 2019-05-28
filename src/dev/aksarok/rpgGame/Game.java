@@ -74,7 +74,6 @@ public class Game implements Runnable {
         gameState = new GameState(handler, "res/worlds/world1.wlvl");
         menuState = new MenuState(handler);
         State.setState(menuState); //STATE inicial
-
     }
 
     /**
