@@ -73,7 +73,7 @@ public class Ghost01 extends Creature {
     }
 
     @Override
-    public void tick() {
+    public void tick() {  
         animDown.tick();
         animUp.tick();
         animRight.tick();

@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 import dev.aksarok.rpgGame.Handler;
 import dev.aksarok.rpgGame.entities.EntityManager;
-import dev.aksarok.rpgGame.entities.TeleportTile;
+import dev.aksarok.rpgGame.entities.statics.indestructible.TeleportTile;
 import dev.aksarok.rpgGame.entities.creatures.Ghost01;
 import dev.aksarok.rpgGame.entities.creatures.Player;
 import dev.aksarok.rpgGame.entities.statics.Box;
@@ -19,6 +19,7 @@ public class World {
     private int width, height;//x Tile
     private int spawnX, spawnY;
     private int[][] tiles;
+    private String worldName;
 
     //ITEM
     private ItemManager itemManager;
@@ -26,28 +27,12 @@ public class World {
     //Entities
     private EntityManager entityManager;
 
-    public World(Handler handler, String path) {
+    public World(Handler handler, String worldName, String path, EntityManager entityManager) {
         this.handler = handler;
-        entityManager = new EntityManager(handler, new Player(handler, "Player", 300, 400));
+        this.worldName = worldName;
+        this.entityManager = entityManager;
         itemManager = new ItemManager(handler);
-        entityManager.addEntity(new Ghost01(handler, 256, 96));
-        
-        entityManager.addEntity(new Box(handler, 288, 768));
-        entityManager.addEntity(new Box(handler, 288 + 32, 768));
-        entityManager.addEntity(new Box(handler, 384, 1056 - 32));
-        entityManager.addEntity(new Ghost01(handler, 384 - 32, 1056));
-        /*
-        entityManager.addEntity(new Box(handler, 514, 400));
-        entityManager.addEntity(new Box(handler, 450, 452));
-        entityManager.addEntity(new Box(handler, 482, 452));
-        entityManager.addEntity(new Box(handler, 514, 452));
-
-        entityManager.addEntity(new Box(handler, 450, 100));
-
-        entityManager.addEntity(new Ghost01(handler, 400, 300));
-
-        entityManager.addEntity(new Chest01(handler, 600, 600));
-        */
+  
         loadWorld(path);
 
         entityManager.getPlayer().setX(spawnX);
@@ -55,7 +40,9 @@ public class World {
     }
 
     public void tick() {
-        entityManager.tick();
+        if(handler.getGame().gameState.getActiveWorld() != worldName) { return;}
+        System.out.println("World ->"+worldName+" || active -> "+entityManager.getEntities().size());
+        this.entityManager.tick();
         itemManager.tick();
         
         if(entityManager.getPlayer() == null) {
@@ -64,6 +51,7 @@ public class World {
     }
 
     public void render(Graphics g) {
+        if(handler.getGame().gameState.getActiveWorld() != worldName) { return;}
         //TILES
         int xStart = (int) Math.max(0, handler.getGameCamera().getxOffset() / Tile.TILEWIDTH);
         int yStart = (int) Math.max(0, handler.getGameCamera().getyOffset() / Tile.TILEHEIGHT);
@@ -79,7 +67,7 @@ public class World {
         //ITEMS
         itemManager.render(g);
         //Entities
-        entityManager.render(g);
+        this.entityManager.render(g);
     }
 
     public Tile getTile(int x, int y) {

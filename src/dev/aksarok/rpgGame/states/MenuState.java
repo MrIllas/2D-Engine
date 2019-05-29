@@ -48,10 +48,7 @@ public class MenuState extends State {
             public void onClick() {
                 //handler.getMouseManager().setUIManager(null);
                 if(handler.getGame().gameState.getWorld().getEntityManager().getPlayer().getHealth() == 0) {
-                    handler.getGame().gameState.getWorld().getEntityManager().getPlayer().setHealth(10);
-                    handler.getGame().gameState.getWorld().getEntityManager().getPlayer().setActive(true);
-                    handler.getGame().gameState.getWorld().getEntityManager().getPlayer().setX(600);
-                    handler.getGame().gameState.getWorld().getEntityManager().getPlayer().setY(600);
+                    handler.getGame().gameState = new GameState(handler);
                 }
                 State.setState(handler.getGame().gameState);
             }

@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dev.aksarok.rpgGame.entities;
+package dev.aksarok.rpgGame.entities.statics.indestructible;
 
 import dev.aksarok.rpgGame.Handler;
+import dev.aksarok.rpgGame.entities.Entity;
 import dev.aksarok.rpgGame.entities.creatures.Player;
 import dev.aksarok.rpgGame.entities.statics.indestructible.IndestructibleEntity;
 import dev.aksarok.rpgGame.gfx.Assets;
+import dev.aksarok.rpgGame.states.GameState;
 import dev.aksarok.rpgGame.worlds.World;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -18,9 +20,17 @@ import java.awt.Rectangle;
  * @author xveri
  */
 public class TeleportTile extends IndestructibleEntity {
-
-    public TeleportTile(Handler handler, float x, float y) {
+    
+    private String world;
+    private int spawnX, spawnY;
+    
+    public TeleportTile(Handler handler, float x, float y, String world, int spawnX, int spawnY) {
         super(handler, "tp", x, y, 32, 32);
+        bounds.width = 0;
+        bounds.height = 0;
+        this.world = world;
+        this.spawnX = spawnX;
+        this.spawnY = spawnY;
     }
 
     @Override
@@ -43,6 +53,8 @@ public class TeleportTile extends IndestructibleEntity {
     
     private void checkPlayer() {
         cb = getCollisionBounds(0, 0);
+        tpArea = getCollisionBounds(0, 0);
+        
         tpArea = new Rectangle();
         tpArea.width = 16;
         tpArea.height = 16;
@@ -51,9 +63,10 @@ public class TeleportTile extends IndestructibleEntity {
         
         for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
             if(e.getClass() != Player.class) continue;
-            
             if(e.getCollisionBounds(0, 0).intersects(tpArea)) {
-                handler.setWorld(new World(handler, "res/worlds/world2.wlvl"));
+                handler.getWorld().getEntityManager().getPlayer().setX(spawnX);
+                handler.getWorld().getEntityManager().getPlayer().setY(spawnY);
+                handler.getGame().gameState.setActiveWorld(world);
             }
         }
     }

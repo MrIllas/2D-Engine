@@ -42,7 +42,7 @@ public class EntityManager {
         this.handler = handler;
         this.player = player;
         entities = new ArrayList<Entity>();
-        addEntity(player);
+        //addEntity(player);
     }
 
     public void tick() {
@@ -61,6 +61,7 @@ public class EntityManager {
 //            }
             
             e.tick();
+            
             if (!e.isActive()) {
                 it.remove();
             }
@@ -105,6 +106,7 @@ public class EntityManager {
 
     public void setPlayer(Player player) {
         this.player = player;
+        addEntity(player);
     }
 
     public ArrayList<Entity> getEntities() {
