@@ -10,6 +10,7 @@ import dev.aksarok.rpgGame.entities.Entity;
 import dev.aksarok.rpgGame.entities.creatures.Player;
 import dev.aksarok.rpgGame.entities.statics.indestructible.IndestructibleEntity;
 import dev.aksarok.rpgGame.gfx.Assets;
+import static dev.aksarok.rpgGame.gfx.Assets.ladder;
 import dev.aksarok.rpgGame.states.GameState;
 import dev.aksarok.rpgGame.worlds.World;
 import java.awt.Graphics;
@@ -40,7 +41,7 @@ public class TeleportTile extends IndestructibleEntity {
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.dungeonFloor, (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), 16, 16, null);
+        g.drawImage(Assets.ladder, (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), 32, 32, null);
     }
 
     @Override

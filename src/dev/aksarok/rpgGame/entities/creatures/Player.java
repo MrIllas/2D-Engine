@@ -162,23 +162,21 @@ public class Player extends Creature {
     }
 
     private void checkInteraction() {
-
         interactArea();
         for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
-
+            if (e.isIsInteractable() == false) {
+                continue;
+            }
+            if (e.equals(this)) {
+                continue;
+            }
             if (e.getCollisionBounds(0, 0).intersects(iArea)) {
-                if (e.isIsInteractable() == false) {
-                    continue;
-                }
-                if (e.equals(this)) {
-                    continue;
-                }
-
                 interactName = e.getName();
 
                 e.setPrintFeed(true);
             } else {
                 e.setPrintFeed(false);
+                interactName = "";
             }
         }
     }

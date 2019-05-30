@@ -43,7 +43,7 @@ public abstract class Creature extends Entity {
             }
         } else if (xMove < 0) {//Move left
             int tx = (int) (x + xMove + bounds.x) / Tile.TILEWIDTH;
-            if (!collisionWithTile(tx, (int) (y + bounds.y + bounds.height) / Tile.TILEWIDTH) && !collisionWithTile(tx, (int) (y + bounds.y + bounds.height) / Tile.TILEWIDTH)) {
+            if (!collisionWithTile(tx, (int) (y + bounds.y) / Tile.TILEWIDTH) && !collisionWithTile(tx, (int) (y + bounds.y + bounds.height) / Tile.TILEWIDTH)) {
                 x += xMove;
             } else {
                 x = tx * Tile.TILEWIDTH + Tile.TILEWIDTH - bounds.x;

@@ -52,14 +52,16 @@ public class FeedBack {
         }
         int pX = (int) (handler.getGame().gameState.getWorld().getEntityManager().getPlayer().getX() + 32) / 32;
         int pY = (int) (handler.getGame().gameState.getWorld().getEntityManager().getPlayer().getY() + 32) / 32;
+        int nEntities = handler.getGame().gameState.getWorld().getEntityManager().getEntities().size();
         String activeWorld = handler.getGame().gameState.getActiveWorld();
         
         Text.drawString(g, "FPS: " + Game.endFps + "", invX, 50 + invY, false, Color.GREEN, Assets.font20);
         Text.drawString(g, "HP: " + playerHealth + "", invX, 50 + invY * 2, false, Color.GREEN, Assets.font20);
         Text.drawString(g, "T.Name: " + Player.tarjetName + "", invX, 50 + invY * 3, false, Color.GREEN, Assets.font20);
         Text.drawString(g, "T.HP: " + Player.tarjetHealth + "", invX, 50 + invY * 4, false, Color.GREEN, Assets.font20);
-        Text.drawString(g, "L. Interaction :" + Player.interactName + "", invX, 50 + invY * 5, false, Color.GREEN, Assets.font20);
-        Text.drawString(g, pX+"/"+pY+" "+activeWorld, invX, 50 + invY * 6, false, Color.GREEN, Assets.font20);
+        Text.drawString(g, "L. Interaction: " + Player.interactName + "", invX, 50 + invY * 5, false, Color.GREEN, Assets.font20);
+        Text.drawString(g, "N. of Entities: " + nEntities + "", invX, 50 + invY * 6, false, Color.GREEN, Assets.font20);
+        Text.drawString(g, pX+"/"+pY+" "+activeWorld, invX, 50 + invY * 7, false, Color.GREEN, Assets.font20);
         
     }
 

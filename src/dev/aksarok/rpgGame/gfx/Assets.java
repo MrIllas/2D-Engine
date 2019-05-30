@@ -28,7 +28,7 @@ public class Assets {
     public static BufferedImage stairs1, stairs2, stairs3, stairs4;
     public static BufferedImage scull;
     public static BufferedImage topFountain, midFRed, midFGreen, midFBlue, botFRed, botFGreen, botFBlue;
-
+    public static BufferedImage ladder;
     public static void init() {
         font48 = FontLoader.loadFont("res/fonts/slkscr.ttf", 48);
         font28 = FontLoader.loadFont("res/fonts/slkscr.ttf", 28);
@@ -36,6 +36,7 @@ public class Assets {
         font15 = FontLoader.loadFont("res/fonts/slkscr.ttf", 15);
 
         SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/0x72_16x16DungeonTileset.v4.png"));
+        SpriteSheet sheet2 = new SpriteSheet(ImageLoader.loadImage("/textures/0x72_16x16DungeonTileset_walls.v2.png"));
         SpriteSheet playerSheet = new SpriteSheet(ImageLoader.loadImage("/sprites/knight.png"));
         SpriteSheet ghost01Sheet = new SpriteSheet(ImageLoader.loadImage("/sprites/ghost1.png"));
         SpriteSheet potionSheet = new SpriteSheet(ImageLoader.loadImage("/textures/witchtiles_3.png"));
@@ -90,21 +91,7 @@ public class Assets {
         player_attDown = new BufferedImage[6];
         player_attUp = new BufferedImage[6];
         player_attRight = new BufferedImage[6];
-        player_attLeft = new BufferedImage[6];
-
-//        player_down[0] = playerSheet.crop(5, 6, width, unitHeight);
-//        player_down[1] = playerSheet.crop(56, 6, width, unitHeight);
-//        player_down[2] = playerSheet.crop(30, 6, width, unitHeight);//Stand
-//        player_up[0] = playerSheet.crop(5, 112, width, unitHeight); //114 y
-//        player_up[1] = playerSheet.crop(56, 112, width, unitHeight);
-//        player_up[2] = playerSheet.crop(30, 112, width, unitHeight);//Stand
-//        player_left[0] = playerSheet.crop(5, 42, width, unitHeight);
-//        player_left[1] = playerSheet.crop(56, 42, width, unitHeight);
-//        player_left[2] = playerSheet.crop(30, 42, width, unitHeight);//Stand
-//        player_right[0] = playerSheet.crop(5, 78, width, unitHeight);
-//        player_right[1] = playerSheet.crop(56, 78, width, unitHeight);
-//        player_right[2] = playerSheet.crop(30, 78, width, unitHeight);//Stand
-        
+        player_attLeft = new BufferedImage[6];       
         player_down[8] = playerSheet.crop(16, 640, 32, 64);//Stand
         player_down[7] = playerSheet.crop(16+64, 640, 32, 64);
         player_down[6] = playerSheet.crop(16+64*2, 640, 32, 64);
@@ -243,5 +230,7 @@ public class Assets {
         botFRed = sheet.crop(0, 80, width, height);
         botFGreen = sheet.crop(16, 80, width, height);
         botFBlue = sheet.crop(32, 80, width, height);
+        
+        ladder = sheet2.crop(2*16, 8*16, width, height);
     }
 }

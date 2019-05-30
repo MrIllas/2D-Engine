@@ -9,6 +9,7 @@ import dev.aksarok.rpgGame.entities.creatures.Ghost01;
 import dev.aksarok.rpgGame.entities.creatures.Player;
 import dev.aksarok.rpgGame.entities.statics.Box;
 import dev.aksarok.rpgGame.entities.statics.indestructible.Chest01;
+import dev.aksarok.rpgGame.entities.statics.indestructible.Chest02;
 import dev.aksarok.rpgGame.entities.statics.indestructible.TeleportTile;
 //import dev.mrillas.rpgGame.gfx.Assets;
 //import dev.mrillas.rpgGame.tiles.Tile;
@@ -51,6 +52,7 @@ public class GameState extends State {
         world1EM.addEntity(new Box(handler, 288 + 32, 768));
         world1EM.addEntity(new Box(handler, 384, 1056 - 32));
         world1EM.addEntity(new Ghost01(handler, 384 - 32, 1056));
+        world1EM.addEntity(new Chest01(handler, 30*32-16, 6*32));
         world1EM.addEntity(new TeleportTile(handler, 42*32, 14*32, "world2", 20*32, 18*32));
         world1 = new World(handler, "world1", "res/worlds/world1.wlvl", world1EM);
         
@@ -59,10 +61,6 @@ public class GameState extends State {
 
     @Override
     public void tick() {
-        
-//        System.out.println("world2EM -> "+world2EM);
-//        System.out.println("world1EM -> "+world1EM);
-//        System.out.println("baseEM -> "+baseEM);
         switch(activeWorld) {
             case "world1":
                 world1.tick();

@@ -41,7 +41,6 @@ public class World {
 
     public void tick() {
         if(handler.getGame().gameState.getActiveWorld() != worldName) { return;}
-        System.out.println("World ->"+worldName+" || active -> "+entityManager.getEntities().size());
         this.entityManager.tick();
         itemManager.tick();
         

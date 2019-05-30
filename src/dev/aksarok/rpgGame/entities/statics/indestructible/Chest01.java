@@ -85,7 +85,7 @@ public class Chest01 extends IndestructibleEntity{
     
     protected void feedG(Graphics g) {
         if(this.printFeed == true) {
-            Text.drawString(g, "(F)", (int) x + (Tile.TILEWIDTH/2), (int) (y - 20 - handler.getGameCamera().getyOffset()), true, Color.white, Assets.font20);
+            Text.drawString(g, "(F)", (int) (x + (Tile.TILEWIDTH/2) - handler.getGameCamera().getxOffset()), (int) (y - 20 - handler.getGameCamera().getyOffset()), true, Color.white, Assets.font20);
         }
     }
     
