@@ -91,14 +91,18 @@ public class Chest {
             }
         }
         
-        Item item = inventoryItems.get(selectedItem);
-        g.drawImage(item.getTexture(), invImageX, invImageY, invImageWidth, invImageHeight, null);
-        Text.drawString(g, Integer.toString(item.getCount()), invCountX, invCountY, true, Color.WHITE, Assets.font28);
-        
-        //Descripcion
-        Text.drawString(g, item.getDescription(), invDescX, invDescY, true, Color.WHITE, Assets.font20);
-        //Feedback text
-        Text.drawString(g, "Press 'Enter' to save", 484, 400, true, Color.WHITE, Assets.font15);
+        try {
+            Item item = inventoryItems.get(selectedItem);
+            g.drawImage(item.getTexture(), invImageX, invImageY, invImageWidth, invImageHeight, null);
+            Text.drawString(g, Integer.toString(item.getCount()), invCountX, invCountY, true, Color.WHITE, Assets.font28);
+
+            //Descripcion
+            Text.drawString(g, item.getDescription(), invDescX, invDescY, true, Color.WHITE, Assets.font20);
+            //Feedback text
+            Text.drawString(g, "Press 'Enter' to save", 484, 400, true, Color.WHITE, Assets.font15);
+        } catch (java.lang.IndexOutOfBoundsException ex) {
+
+        }
     }
     
     //Chest metods

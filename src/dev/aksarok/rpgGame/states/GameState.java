@@ -41,7 +41,7 @@ public class GameState extends State {
         world2EM.addEntity(new Box(handler, 450, 100));
         world2EM.addEntity(new Ghost01(handler, 400, 300));
         world2EM.addEntity(new Chest01(handler, 600, 600));
-        world2EM.addEntity(new TeleportTile(handler, 20*32, 22*32, "world1", 42*32, 15*32));
+        world2EM.addEntity(new TeleportTile(handler, 20*32, 22*32, "world1", 42*32 - 16, 15*32));
         world2 = new World(handler, "world2", "res/worlds/world2.wlvl", world2EM);
         
         //World1
