@@ -1,15 +1,19 @@
 package dev.aksarok.rpgGame.gui;
 
+import dev.aksarok.rpgGame.Handler;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 
 public abstract class UIObject {
-
+    
     protected float x, y;
     protected int width, height;
     protected Rectangle bounds;
     protected boolean hovering = false;
+    protected boolean hasHovering = true;
+    protected boolean doublePosition = false;
+    protected int currentImage = 0;
 
     public UIObject(float x, float y, int width, int height) {
         this.x = x;
@@ -23,19 +27,21 @@ public abstract class UIObject {
 
     public abstract void render(Graphics g);
 
-    public abstract void onClick();
+    public abstract void onClick(MouseEvent e);
 
     public void onMouseMove(MouseEvent e) {
         if (bounds.contains(e.getX(), e.getY())) {
             hovering = true;
-        } else {
+        } 
+        else {
             hovering = false;
         }
     }
 
     public void onMouseRelease(MouseEvent e) {
         if (hovering) {
-            onClick();
+            onClick(e);
+            hovering = false;
         }
     }
 
@@ -75,9 +81,24 @@ public abstract class UIObject {
     public boolean isHovering() {
         return hovering;
     }
+    public void setHasHovering(boolean hovering) {
+        this.hasHovering = hovering;
+    }
 
     public void setHovering(boolean hovering) {
         this.hovering = hovering;
+    }
+    
+    public void setDoublePosition(Boolean doublePosition) {
+        this.doublePosition = doublePosition;
+    }
+    
+    public int getCurrentImage() {
+        return currentImage;
+    }
+
+    public void setCurrentImage(int currentImage) {
+        this.currentImage = currentImage;
     }
 
 }

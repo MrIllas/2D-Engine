@@ -56,4 +56,12 @@ public class UIManager {
     public void setHandler(Handler handler) {
         this.handler = handler;
     }
+    
+    public UIObject getLastObject() {
+        return objects.get(objects.size() - 1);
+    }
+    
+    public UIObject getObject(int i) {
+        return objects.get(i);
+    }
 }

@@ -4,6 +4,7 @@ import dev.aksarok.rpgGame.gfx.Assets;
 import dev.aksarok.rpgGame.gfx.Text;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 public class UIImageButton extends UIObject {
@@ -31,10 +32,18 @@ public class UIImageButton extends UIObject {
 
     @Override
     public void render(Graphics g) {
-        if (hovering && images.length == 2) {
-            g.drawImage(images[1], (int) x, (int) y, width, height, null);
-        } else {
-            g.drawImage(images[0], (int) x, (int) y, width, height, null);
+        if (hasHovering) {
+            if (hovering && images.length == 2) {
+                g.drawImage(images[1], (int) x, (int) y, width, height, null);
+                currentImage = 1;
+            } 
+            else {
+                g.drawImage(images[0], (int) x, (int) y, width, height, null);
+                currentImage = 0;
+            }
+        }
+        if (doublePosition) {
+            g.drawImage(images[currentImage], (int) x, (int) y, width, height, null);
         }
         
         if(text != null) {
@@ -43,8 +52,19 @@ public class UIImageButton extends UIObject {
     }
 
     @Override
-    public void onClick() {
+    public void onClick(MouseEvent e) {
         clicker.onClick();
+        e.setSource(bounds);
+        
+        //Checks if is a switch icon and changes the icon in case it is
+        if (doublePosition) {
+            if (currentImage == 1) {
+                currentImage = 0;
+            }
+            else {
+                currentImage = 1;
+            }
+        } 
     }
     
     //GETTERS AND SETTERS
@@ -52,5 +72,6 @@ public class UIImageButton extends UIObject {
     public void setText(String text) {
         this.text = text;
     }
+
 
 }

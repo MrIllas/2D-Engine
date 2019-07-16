@@ -4,6 +4,7 @@ import java.awt.Graphics;
 
 import dev.aksarok.rpgGame.Game;
 import dev.aksarok.rpgGame.Handler;
+import static dev.aksarok.rpgGame.Launcher.SCREEN_WIDTH;
 import dev.aksarok.rpgGame.entities.EntityManager;
 import dev.aksarok.rpgGame.entities.creatures.Ghost01;
 import dev.aksarok.rpgGame.entities.creatures.Player;
@@ -11,6 +12,12 @@ import dev.aksarok.rpgGame.entities.statics.Box;
 import dev.aksarok.rpgGame.entities.statics.indestructible.Chest01;
 import dev.aksarok.rpgGame.entities.statics.indestructible.Chest02;
 import dev.aksarok.rpgGame.entities.statics.indestructible.TeleportTile;
+import dev.aksarok.rpgGame.gfx.Assets;
+import dev.aksarok.rpgGame.gui.ClickListener;
+import dev.aksarok.rpgGame.gui.UIImageButton;
+import dev.aksarok.rpgGame.gui.UIManager;
+import static dev.aksarok.rpgGame.states.MenuState.musicONOFF;
+import static dev.aksarok.rpgGame.states.MenuState.snd_music;
 //import dev.mrillas.rpgGame.gfx.Assets;
 //import dev.mrillas.rpgGame.tiles.Tile;
 import dev.aksarok.rpgGame.worlds.World;
@@ -26,10 +33,14 @@ public class GameState extends State {
     
     private String activeWorld = "world1";
     private String lastWorld = "world1";
+    
+    private UIManager uiManager;
 
     public GameState(Handler handler) {
         super(handler);
         baseEM = new EntityManager(handler, new Player(handler, "Player", 50, 50));
+        
+        uiManager = new UIManager(handler);
         
         //World2
         world2EM = new EntityManager(handler, null);
@@ -57,10 +68,42 @@ public class GameState extends State {
         world1 = new World(handler, "world1", "res/worlds/world1.wlvl", world1EM);
         
         handler.setWorld(world1);
+        
+        //UIManager UI
+        //Btn mute/unmute music
+        uiManager.addObject(new UIImageButton(SCREEN_WIDTH - 40, 10, 25, 25, Assets.btn_sound, null, 0, 0, new ClickListener() {
+            @Override
+            public void onClick() {
+                if (musicONOFF) {
+                    snd_music.setVolume(0f);
+                    musicONOFF = false;
+                }
+                else {
+                    snd_music.setVolume(0.5f);
+                    musicONOFF = true;
+                }
+            }
+        }));
+        uiManager.getLastObject().setHasHovering(false);
+        uiManager.getLastObject().setDoublePosition(true);
+        
+        //Btn to menu
+        uiManager.addObject(new UIImageButton(SCREEN_WIDTH - 75, 10, 25, 25, Assets.btn_toMenu, null, 0, 0, new ClickListener() {
+            @Override
+            public void onClick() {
+                State.setState(handler.getGame().menuState);
+                System.out.println("Click");
+            }
+        }));
     }
 
     @Override
     public void tick() {
+        uiManager.tick();
+        if(handler.getMouseManager().getUIManager() != this.uiManager) {
+            handler.getMouseManager().setUIManager(uiManager);
+        }
+        
         switch(activeWorld) {
             case "world1":
                 world1.tick();
@@ -87,7 +130,10 @@ public class GameState extends State {
                 world2.render(g);
                 break;
         }
-
+        
+        uiManager.getObject(0).setCurrentImage(musicONOFF ? 0 : 1); //Updates mute icon
+        uiManager.render(g);
+        
         //Tile.tiles[0].render(g, 0, 0);
         //Tile.tiles[1].render(g, 112, 112);
     }

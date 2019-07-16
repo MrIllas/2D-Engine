@@ -6,6 +6,7 @@
 package dev.aksarok.rpgGame.gui;
 
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 /**
@@ -45,7 +46,7 @@ public class UIAnimated extends UIObject {
     }
 
     @Override
-    public void onClick() {
+    public void onClick(MouseEvent e) {
     }
     
 }

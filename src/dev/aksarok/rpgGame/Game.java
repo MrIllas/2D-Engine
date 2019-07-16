@@ -11,6 +11,7 @@ import dev.aksarok.rpgGame.gfx.ImageLoader;
 import dev.aksarok.rpgGame.gfx.SpriteSheet;
 import dev.aksarok.rpgGame.input.KeyManager;
 import dev.aksarok.rpgGame.input.MouseManager;
+import dev.aksarok.rpgGame.states.CreditState;
 import dev.aksarok.rpgGame.states.GameState;
 import dev.aksarok.rpgGame.states.MenuState;
 import dev.aksarok.rpgGame.states.State;
@@ -37,6 +38,7 @@ public class Game implements Runnable {
     //STATES
     public GameState gameState;
     public State menuState;
+    public State creditState;
 
     //INPUT
     private KeyManager keyManager;
@@ -70,10 +72,13 @@ public class Game implements Runnable {
 
         handler = new Handler(this);
         gameCamera = new GameCamera(handler, 0, 0);
-
+        
+        //States declarations
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
-        State.setState(menuState); //STATE inicial
+        creditState = new CreditState(handler);
+        
+        State.setState(menuState); //Initial State
     }
 
     /**

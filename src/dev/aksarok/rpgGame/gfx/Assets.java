@@ -15,7 +15,7 @@ public class Assets {
     public static BufferedImage[] player_down, player_up, player_right, player_left,
                                   player_attDown, player_attUp, player_attRight, player_attLeft;
     public static BufferedImage[] ghost01_down, ghost01_up, ghost01_right, ghost01_left;
-    public static BufferedImage[] btn_start, bg_start_menu, theTitle;
+    public static BufferedImage[] btn_start, bg_start_menu, theTitle, btn_sound, btn_toMenu;
 
     public static BufferedImage[] ent_box;
     public static BufferedImage[] ent_chest01, ent_chest02;
@@ -45,7 +45,10 @@ public class Assets {
         //GUI SHEET
         SpriteSheet btn_longBlue = new SpriteSheet(ImageLoader.loadImage("/gui/buttonLong_blue.png"));
         SpriteSheet btn_longBlue2 = new SpriteSheet(ImageLoader.loadImage("/gui/buttonLong_blue_pressed.png"));
-
+        SpriteSheet btn_mute = new SpriteSheet(ImageLoader.loadImage("/gui/mute.png"));
+        SpriteSheet btn_unmute = new SpriteSheet(ImageLoader.loadImage("/gui/unmute.png"));
+        SpriteSheet btn_door = new SpriteSheet(ImageLoader.loadImage("/gui/toMenu.png"));
+        
         //BG Sheet
         SpriteSheet title = new SpriteSheet(ImageLoader.loadImage("/gui/Aksarok-Rpg.png"));
         SpriteSheet bgSheet1 = new SpriteSheet(ImageLoader.loadImage("/gui/bg/bg01.png"));
@@ -82,7 +85,15 @@ public class Assets {
         btn_start = new BufferedImage[2];
         btn_start[0] = btn_longBlue.crop(0, 0, btn_longBlue.getImgWidth(), btn_longBlue.getImgHeight());
         btn_start[1] = btn_longBlue2.crop(0, 0, btn_longBlue2.getImgWidth(), btn_longBlue2.getImgHeight());
-
+        
+        btn_sound = new BufferedImage[2];
+        btn_sound[0] = btn_mute.crop(0, 0, btn_mute.getImgWidth(), btn_mute.getImgHeight());
+        btn_sound[1] = btn_unmute.crop(0, 0, btn_unmute.getImgWidth(), btn_unmute.getImgHeight());
+        
+        btn_toMenu = new BufferedImage[2];
+        btn_toMenu[0] = btn_door.crop(0, 0, btn_door.getImgWidth(), btn_door.getImgHeight());
+        btn_toMenu[1] = btn_door.crop(0, 0, btn_door.getImgWidth(), btn_door.getImgHeight());
+        
         //ENTITES
         player_down = new BufferedImage[9];
         player_up = new BufferedImage[9];
