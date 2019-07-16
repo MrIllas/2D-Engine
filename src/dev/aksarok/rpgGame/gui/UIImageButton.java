@@ -55,7 +55,7 @@ public class UIImageButton extends UIObject {
     public void onClick(MouseEvent e) {
         clicker.onClick();
         e.setSource(bounds);
-        
+        hovering = false;
         //Checks if is a switch icon and changes the icon in case it is
         if (doublePosition) {
             if (currentImage == 1) {
