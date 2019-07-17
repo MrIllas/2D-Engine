@@ -74,6 +74,9 @@ public class CreditState extends State {
         if(handler.getMouseManager().getUIManager() != this.uiManager) {
             handler.getMouseManager().setUIManager(uiManager);
         }
+        
+        //Feedback mouse
+        //System.out.println("X: " + handler.getMouseManager().getMouseX() + "||Y: " + handler.getMouseManager().getMouseY());
     }
 
     @Override
@@ -82,8 +85,14 @@ public class CreditState extends State {
         uiManager.render(g);
         
         //Credits
+        Text.drawString(g, "Designed and developed by ", 303, 250, false, Color.white, Assets.font28);
+        Text.drawString(g, "Robert Recorda Illas", 380, 300, false, Color.white, Assets.font20);
+        Text.drawString(g, "Jesus Garcia Serrano", 380, 350, false, Color.white, Assets.font20);
         
-        
+        Text.drawString(g, "GitHub", 877, 250, false, Color.white, Assets.font28);
+        Text.drawString(g, "@MrIllas", 877, 300, false, Color.white, Assets.font20);
+        Text.drawString(g, "@xVeri", 877, 350, false, Color.white, Assets.font20);
+
         //Version
         Text.drawString(g, version, SCREEN_WIDTH - 170, SCREEN_HEIGHT - 7, true, Color.white, Assets.font15);
     }

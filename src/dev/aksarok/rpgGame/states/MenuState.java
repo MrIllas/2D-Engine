@@ -62,9 +62,9 @@ public class MenuState extends State {
             @Override
             public void onClick() {
                 //handler.getMouseManager().setUIManager(null);
-                if(handler.getGame().gameState.getWorld().getEntityManager().getPlayer().getHealth() == 0) {
+                //if(handler.getGame().gameState.getWorld().getEntityManager().getPlayer().getHealth() == 0) {
                     handler.getGame().gameState = new GameState(handler);
-                }
+                //}
                 State.setState(handler.getGame().gameState);
             }
         }));

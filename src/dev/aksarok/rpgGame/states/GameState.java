@@ -92,7 +92,6 @@ public class GameState extends State {
             @Override
             public void onClick() {
                 State.setState(handler.getGame().menuState);
-                System.out.println("Click");
             }
         }));
     }
