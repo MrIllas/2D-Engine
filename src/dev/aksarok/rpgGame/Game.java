@@ -9,11 +9,13 @@ import dev.aksarok.rpgGame.gfx.Assets;
 import dev.aksarok.rpgGame.gfx.GameCamera;
 import dev.aksarok.rpgGame.gfx.ImageLoader;
 import dev.aksarok.rpgGame.gfx.SpriteSheet;
+import dev.aksarok.rpgGame.console.Console;
 import dev.aksarok.rpgGame.input.KeyManager;
 import dev.aksarok.rpgGame.input.MouseManager;
 import dev.aksarok.rpgGame.states.CreditState;
 import dev.aksarok.rpgGame.states.GameState;
 import dev.aksarok.rpgGame.states.MenuState;
+import dev.aksarok.rpgGame.states.OptionsState;
 import dev.aksarok.rpgGame.states.State;
 
 /**
@@ -39,6 +41,7 @@ public class Game implements Runnable {
     public GameState gameState;
     public State menuState;
     public State creditState;
+    public State optionsState;
 
     //INPUT
     private KeyManager keyManager;
@@ -49,6 +52,9 @@ public class Game implements Runnable {
 
     //HANDLER
     private Handler handler;
+    
+    //Console
+    private Console console;
 
     public Game(String title, int width, int height) {
         this.width = width;
@@ -71,12 +77,14 @@ public class Game implements Runnable {
         Assets.init();
 
         handler = new Handler(this);
+        console = new Console(handler);
         gameCamera = new GameCamera(handler, 0, 0);
         
         //States declarations
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
         creditState = new CreditState(handler);
+        optionsState = new OptionsState(handler);
         
         State.setState(menuState); //Initial State
     }
@@ -90,6 +98,7 @@ public class Game implements Runnable {
         if (State.getState() != null) {
             State.getState().tick();
         }
+        console.tick();
     }
 
     /**
@@ -109,6 +118,7 @@ public class Game implements Runnable {
         if (State.getState() != null) {
             State.getState().render(g);
         }
+        console.render(g);
 
         //END DRAWING!
         bs.show(); //Ensenya els grafics

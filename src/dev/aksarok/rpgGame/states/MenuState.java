@@ -20,7 +20,7 @@ public class MenuState extends State {
     protected static SoundEffect snd_music;
     protected static boolean musicONOFF = false;
     
-    protected static String version = "Version Alpha 0.0.3 Snapshot 2v";
+    protected static String version = "vAlpha 0.0.3 Snapshot 3v";
     
     public MenuState(Handler handler) {
         super(handler);
@@ -82,6 +82,14 @@ public class MenuState extends State {
             @Override
             public void onClick() {
                 System.exit(0);
+            }
+        }));
+        
+        //Options button
+        uiManager.addObject(new UIImageButton((SCREEN_WIDTH) / 2 -250, 500, 60, 60, Assets.btn_options, "", 145, 29, new ClickListener() {
+            @Override
+            public void onClick() {
+                State.setState(handler.getGame().optionsState);
             }
         }));
     }

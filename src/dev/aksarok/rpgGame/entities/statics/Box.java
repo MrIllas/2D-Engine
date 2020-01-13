@@ -44,6 +44,10 @@ public class Box extends StaticEntity {
         //g.setColor(Color.red);
         //g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()), (int) (y + bounds.y - handler.getGameCamera().getyOffset()), bounds.width, bounds.height);
     }
-
+    
+    @Override
+    public void postRender(Graphics g) {
+        
+    }
     //GETTERS AND SETTERS
 }

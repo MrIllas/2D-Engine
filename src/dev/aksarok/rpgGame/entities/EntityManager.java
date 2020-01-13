@@ -14,6 +14,7 @@ public class EntityManager {
     private Handler handler;
     private Player player;
     private ArrayList<Entity> entities;
+    private long idCount = 0;
     
     private Comparator<Entity> renderSorter = new Comparator<Entity>() {
 
@@ -85,10 +86,15 @@ public class EntityManager {
             e.render(g);
         }
         player.postRender(g);
+        for (Entity e : entities) {
+            e.postRender(g);
+        }
     }
 
     public void addEntity(Entity e) {
+        e.setId(idCount);
         entities.add(e);
+        idCount++;
     }
 
     //GETTERS AND SETTERS

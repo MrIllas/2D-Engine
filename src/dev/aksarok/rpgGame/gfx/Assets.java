@@ -15,7 +15,7 @@ public class Assets {
     public static BufferedImage[] player_down, player_up, player_right, player_left,
                                   player_attDown, player_attUp, player_attRight, player_attLeft;
     public static BufferedImage[] ghost01_down, ghost01_up, ghost01_right, ghost01_left;
-    public static BufferedImage[] btn_start, bg_start_menu, theTitle, btn_sound, btn_toMenu;
+    public static BufferedImage[] btn_start, bg_start_menu, theTitle, btn_sound, btn_toMenu, btn_options;
 
     public static BufferedImage[] ent_box;
     public static BufferedImage[] ent_chest01, ent_chest02;
@@ -48,6 +48,8 @@ public class Assets {
         SpriteSheet btn_mute = new SpriteSheet(ImageLoader.loadImage("/gui/mute.png"));
         SpriteSheet btn_unmute = new SpriteSheet(ImageLoader.loadImage("/gui/unmute.png"));
         SpriteSheet btn_door = new SpriteSheet(ImageLoader.loadImage("/gui/toMenu.png"));
+        SpriteSheet btn_squareBlue = new SpriteSheet(ImageLoader.loadImage("/gui/buttonSquare_blue.png"));
+        SpriteSheet btn_squareBlue2 = new SpriteSheet(ImageLoader.loadImage("/gui/buttonSquare_blue_pressed.png"));
         
         //BG Sheet
         SpriteSheet title = new SpriteSheet(ImageLoader.loadImage("/gui/Aksarok-Rpg.png"));
@@ -93,6 +95,10 @@ public class Assets {
         btn_toMenu = new BufferedImage[2];
         btn_toMenu[0] = btn_door.crop(0, 0, btn_door.getImgWidth(), btn_door.getImgHeight());
         btn_toMenu[1] = btn_door.crop(0, 0, btn_door.getImgWidth(), btn_door.getImgHeight());
+        
+        btn_options = new BufferedImage[2];
+        btn_options[0] = btn_squareBlue.crop(0, 0, btn_squareBlue.getImgWidth(), btn_squareBlue.getImgHeight());
+        btn_options[1] = btn_squareBlue2.crop(0, 0, btn_squareBlue2.getImgWidth(), btn_squareBlue2.getImgHeight());
         
         //ENTITES
         player_down = new BufferedImage[9];

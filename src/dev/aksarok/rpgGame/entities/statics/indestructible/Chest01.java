@@ -24,33 +24,35 @@ public class Chest01 extends IndestructibleEntity{
     //STATS
     private static String name = "Chest01";
     
-    private static Boolean activeMenu = false;
-    
-    protected Chest chest;
+    private Chest chest;
     
     public Chest01(Handler handler, float x, float y) {
         super(handler, name, x, y, Tile.TILEWIDTH, Tile.TILEHEIGHT);
         
-        bounds.x = 0;
-        bounds.y = (int) (height / 2.2f);
-        bounds.width = width;
-        bounds.height = (int) (height - height / 2.2f);
-        isInteractable = true;
+        this.bounds.x = 0;
+        this.bounds.y = (int) (height / 2.2f);
+        this.bounds.width = width;
+        this.bounds.height = (int) (height - height / 2.2f);
+        this.isInteractable = true;
         
-        this.chest = new Chest(handler);
+        
         //
-        itemPool();
+        
         
     }
     
     @Override
     public void tick() {
+        if(chest == null) {
+            this.chest = new Chest(handler, ""+this.name+" || "+this.id);
+            this.itemPool();
+        }
+        
         this.chest.tick();
-        doInteraction();
+        this.doInteraction();
         
         if(this.printFeed == false) {
             this.chest.setOpen(false);
-            this.activeMenu = false;
         }
     }
 
@@ -68,9 +70,14 @@ public class Chest01 extends IndestructibleEntity{
 //        g.setColor(Color.red);
 //        g.fillRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()), (int) (y + bounds.y - handler.getGameCamera().getyOffset()), bounds.width, bounds.height);
         
-        feedG(g);
+        this.feedG(g);
         
-        interactionToRender(g);
+        
+    }
+    
+    @Override
+    public void postRender(Graphics g) {
+        this.interactionToRender(g);
     }
 
     @Override
@@ -93,13 +100,13 @@ public class Chest01 extends IndestructibleEntity{
         if(this.printFeed != true ) { return; }
         
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F)) {
-            this.activeMenu = !activeMenu;
+            this.activeMenu = !this.activeMenu;
             this.chest.setOpen(true);
         }
     }
     
     protected void interactionToRender(Graphics g) {
-        if(!activeMenu) { return; }
+        if(!this.activeMenu) { return; }
             this.chest.render(g);
         
     }

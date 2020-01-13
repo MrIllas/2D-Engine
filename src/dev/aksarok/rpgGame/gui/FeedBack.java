@@ -16,7 +16,7 @@ import java.awt.image.BufferedImage;
 public class FeedBack {
 
     private Handler handler;
-    private boolean active = false;
+    private static boolean active = false;
     //Posicion general
     private int invX = 32 * 0 + 2, invY = 16; //Launcher.SCREEN_WIDTH
     //Health 
@@ -34,9 +34,9 @@ public class FeedBack {
     }
 
     public void tick() {
-        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_P)) {
-            active = !active;
-        }
+//        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_P)) {
+//            active = !active;
+//        }
         if (!active) {
             return;
         }
@@ -102,5 +102,9 @@ public class FeedBack {
         toReturn = healthAnim.getCurrentFrame().getSubimage(0, 0,  dif, healthAnim.getCurrentFrame().getHeight());
         
         return toReturn;
+    }
+
+    public static void setActive(boolean active) {
+        FeedBack.active = active;
     }
 }

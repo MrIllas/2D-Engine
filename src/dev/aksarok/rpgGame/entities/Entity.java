@@ -12,6 +12,7 @@ public abstract class Entity {
     public static final int DEFAULT_HEALTH = 10;
 
     protected Handler handler;
+    protected long id;
     protected float x, y;
     protected int width, height;
     protected int health;
@@ -22,7 +23,8 @@ public abstract class Entity {
     
     protected boolean isDestructible = true;
     protected boolean isInteractable = false;
-    protected static Boolean printFeed = false;
+    protected Boolean printFeed = false;
+    protected Boolean activeMenu = false;
 
     public Entity(Handler handler, String name, float x, float y, int width, int height) {
         this.handler = handler;
@@ -33,13 +35,15 @@ public abstract class Entity {
         this.health = DEFAULT_HEALTH;
         this.name = name;
 
-        bounds = new Rectangle(0, 0, width, height);
+        this.bounds = new Rectangle(0, 0, width, height);
     }
 
     public abstract void tick();
 
     public abstract void render(Graphics g);
-
+    
+    public abstract void postRender(Graphics g);
+    
     public abstract void die();
 
     protected void deadthDrop(int maxDropNumber, int minDropNumber, int[] itemId) {
@@ -72,20 +76,23 @@ public abstract class Entity {
         }
         return false;
     }
-
+    
     public Rectangle getCollisionBounds(float xOffset, float yOffset) {
-        return new Rectangle((int) (x + bounds.x + xOffset), (int) (y + bounds.y + yOffset), bounds.width, bounds.height);
+        return new Rectangle((int) (x + this.bounds.x + xOffset), (int) (y + this.bounds.y + yOffset), this.bounds.width, this.bounds.height);
     }
     
     //Others
-    public void heal(int value) {
+    public boolean heal(int value) {
         if(health != maxHealth){
             health = health + value;
             
             if(health > maxHealth) {
                 health = maxHealth;
+                return true; //Efecte cumplert
             }
+            return true;
         }
+        return false; //No hi ha hagut cap efecte
     }
     
     //GETTES AND SETTERS
@@ -169,12 +176,28 @@ public abstract class Entity {
         this.isInteractable = isInteractable;
     }
 
-    public static Boolean getPrintFeed() {
-        return printFeed;
+    public Boolean getPrintFeed() {
+        return this.printFeed;
     }
 
-    public static void setPrintFeed(Boolean printFeed) {
-        Entity.printFeed = printFeed;
+    public void setPrintFeed(Boolean printFeed) {
+        this.printFeed = printFeed;
+    }
+
+    public Boolean getActiveMenu() {
+        return this.activeMenu;
+    }
+
+    public void setActiveMenu(Boolean activeMenu) {
+        this.activeMenu = activeMenu;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
     
     

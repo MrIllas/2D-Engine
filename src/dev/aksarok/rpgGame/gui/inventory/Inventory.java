@@ -60,11 +60,13 @@ public class Inventory {
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_ENTER) && !inventoryItems.isEmpty()) {
             System.out.println("Triggered '" + inventoryItems.get(selectedItem).getName() + "'.");
 
-            inventoryItems.get(selectedItem).getEffect().tick();
-
-            inventoryItems.get(selectedItem).setMinusCount(1);
-            if (inventoryItems.get(selectedItem).getCount() <= 0) {
-                inventoryItems.remove(selectedItem);
+            inventoryItems.get(selectedItem).getEffect().tick();//Ejecuta el efecto
+            
+            if(inventoryItems.get(selectedItem).getEffect().getDidItSucceed()) {//Mira si se ha cumplido el efecto y elimina 1 Item
+                inventoryItems.get(selectedItem).setMinusCount(1);
+                if (inventoryItems.get(selectedItem).getCount() <= 0) {
+                    inventoryItems.remove(selectedItem);
+                }
             }
         }
 

@@ -31,6 +31,15 @@ public class Utils {
             return 0;
         }
     }
+    
+    public static float parseFloat(String number) {
+        try {
+            return Float.parseFloat(number);
+        } catch (NumberFormatException e) {
+            System.out.println("Error parsing string to float.");
+            return 0;
+        }
+    }
 
     public static int randomInt(int min, int max) {
         try {

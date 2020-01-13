@@ -17,8 +17,8 @@ public class ItemEffect {
     
     //Handler
     public static ItemEffect[] itemEffects = new ItemEffect[256];
-    public static ItemEffect healPlus2 = new ItemEffect("heal", 1000, 2, null, 0),
-                             healPlus4 = new ItemEffect("heal", 1000, 4, null, 1);
+    public static ItemEffect healPlus2 = new ItemEffect("heal", 1000, 2, null, true, 0),
+                             healPlus4 = new ItemEffect("heal", 1000, 4, null, true, 1);
     
     //Class
     protected Handler handler;
@@ -29,13 +29,15 @@ public class ItemEffect {
     protected String type;
     protected long time , lastTime , cooldown = 1000;
     protected int value;
+    protected boolean didItSucceed;
     
-    public ItemEffect(String type, long time, int value, Animation animation, int id) {
+    public ItemEffect(String type, long time, int value, Animation animation, Boolean didItSuceed, int id) {
         this.type = type;
         this.time = time;
         this.value = value;
         this.animation = animation;
         this.id = id;
+        this.didItSucceed = didItSucceed;
         
         itemEffects[id] = this;
     }
@@ -51,7 +53,7 @@ public class ItemEffect {
         switch(type.toLowerCase()) {
             case "heal":
                 System.out.println("Healed!");
-                handler.getWorld().getEntityManager().getPlayer().heal(value);
+                didItSucceed = handler.getWorld().getEntityManager().getPlayer().heal(value);
                 break;
             case "damage":
                 System.out.println("Damaged!");
@@ -71,5 +73,9 @@ public class ItemEffect {
 
     public void setHandler(Handler handler) {
         this.handler = handler;
+    }
+
+    public boolean getDidItSucceed() {
+        return didItSucceed;
     }
 }

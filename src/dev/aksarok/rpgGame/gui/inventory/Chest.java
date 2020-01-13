@@ -28,13 +28,16 @@ public class Chest {
     private int invCountX = 484, invCountY = 172;
     private int invDescX = 484, invDescY = 300;
     
+    private String title = "";
+    
     private int selectedItem = 0;
     
     private Boolean open = false;
     
-    public Chest(Handler handler) {
+    public Chest(Handler handler, String title) {
         this.handler = handler;
         inventoryItems = new ArrayList<>();
+        this.title = title;
     }
     
     public void tick() {
@@ -95,7 +98,9 @@ public class Chest {
             Item item = inventoryItems.get(selectedItem);
             g.drawImage(item.getTexture(), invImageX, invImageY, invImageWidth, invImageHeight, null);
             Text.drawString(g, Integer.toString(item.getCount()), invCountX, invCountY, true, Color.WHITE, Assets.font28);
-
+            
+            //Titulo
+            Text.drawString(g, this.title, 175, 65, true, Color.WHITE, Assets.font20);
             //Descripcion
             Text.drawString(g, item.getDescription(), invDescX, invDescY, true, Color.WHITE, Assets.font20);
             //Feedback text

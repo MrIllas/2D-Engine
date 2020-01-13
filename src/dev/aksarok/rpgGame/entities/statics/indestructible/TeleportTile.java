@@ -43,6 +43,11 @@ public class TeleportTile extends IndestructibleEntity {
     public void render(Graphics g) {
         g.drawImage(Assets.ladder, (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), 32, 32, null);
     }
+    
+    @Override
+    public void postRender(Graphics g) {
+        
+    }
 
     @Override
     public void die() {

@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 import dev.aksarok.rpgGame.Handler;
 import dev.aksarok.rpgGame.entities.Entity;
+import dev.aksarok.rpgGame.entities.creatures.playerThreads.Interaction;
 import dev.aksarok.rpgGame.gfx.Animation;
 import dev.aksarok.rpgGame.gfx.Assets;
 import dev.aksarok.rpgGame.gui.FeedBack;
@@ -26,11 +27,17 @@ public class Player extends Creature {
     //GUI
     private Inventory inventory;
     private FeedBack feedBack;
-
+    
+    //Threads
+    private Interaction interaction;
+    
     //STATS
     public static int tarjetHealth = 0;
     public static String tarjetName = "";
     public static String interactName = "";
+    public static long interactId = 0;
+    private boolean interactionSwitch = false;
+    public static Boolean aMenuIsOpen = false;
 
     public Player(Handler handler, String name, float x, float y) {
         super(handler, name, x, y, 32, 64); //32/64/192
@@ -140,7 +147,7 @@ public class Player extends Creature {
                 continue;
             }
 
-            if (e.getCollisionBounds(0, 0).intersects(ar)) {
+            if (e.getCollisionBounds(0f, 0f).intersects(ar)) {
                 e.hurt(1);
                 tarjetHealth = e.getHealth();
                 tarjetName = e.getName();
@@ -152,8 +159,8 @@ public class Player extends Creature {
     private Rectangle iArea;
 
     private void interactArea() {
-        cb = getCollisionBounds(0, 0);
-        iArea = getCollisionBounds(0, 0);
+        cb = getCollisionBounds(0f, 0f);
+        iArea = getCollisionBounds(0f, 0f);
         iArea = new Rectangle();
         iArea.width = bounds.width * 3;
         iArea.height = bounds.height * 3;
@@ -163,6 +170,9 @@ public class Player extends Creature {
 
     private void checkInteraction() {
         interactArea();
+        //System.out.println(""+handler.getWorld().getEntityManager().getEntities().get(1).getName()+" || " + handler.getWorld().getEntityManager().getEntities().get(1).getId() + " || "+ handler.getWorld().getEntityManager().getEntities().get(1).getPrintFeed());
+        //System.out.println(""+handler.getWorld().getEntityManager().getEntities().get(2).getName()+" || " + handler.getWorld().getEntityManager().getEntities().get(2).getId() + " || "+ handler.getWorld().getEntityManager().getEntities().get(2).getPrintFeed());
+        
         for (Entity e : handler.getWorld().getEntityManager().getEntities()) {
             if (e.isIsInteractable() == false) {
                 continue;
@@ -170,14 +180,26 @@ public class Player extends Creature {
             if (e.equals(this)) {
                 continue;
             }
-            if (e.getCollisionBounds(0, 0).intersects(iArea)) {
-                interactName = e.getName();
-
-                e.setPrintFeed(true);
-            } else {
-                e.setPrintFeed(false);
+            
+            if(!interactionSwitch) {
                 interactName = "";
+                interactId = 0;
+                aMenuIsOpen = false;
+                doInteraction(e);
+            }else {
+                interactionSwitch = interaction.endCheck();
+                interactName = interaction.getInteractName();
+                interactId = interaction.getInteractId();
+                aMenuIsOpen = interaction.isaMenuIsOpen();
             }
+        }
+    }
+    
+    private void doInteraction(Entity e){
+        if (e.getCollisionBounds(0f, 0f).intersects(iArea)) {
+            interactionSwitch = true;
+            interaction = new Interaction(handler, e, iArea, this);
+            interaction.start();
         }
     }
 
@@ -190,8 +212,12 @@ public class Player extends Creature {
     private void getInput() {
         xMove = 0;
         yMove = 0;
-
+        
+        //System.out.println(""+aMenuIsOpen);
         if (inventory.isActive()) {
+            return;
+        }
+        if (aMenuIsOpen) {
             return;
         }
         if (handler.getKeyManager().w) {
@@ -300,6 +326,14 @@ public class Player extends Creature {
 
     public void setHealth(int health) {
         this.health = health;
+    }
+
+    public Rectangle getiArea() {
+        return iArea;
+    }
+
+    public void setiArea(Rectangle iArea) {
+        this.iArea = iArea;
     }
 
     @Override

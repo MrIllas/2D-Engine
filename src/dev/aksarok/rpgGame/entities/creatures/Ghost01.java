@@ -273,7 +273,12 @@ public class Ghost01 extends Creature {
         renderHealthBar(g);
 
     }
-
+    
+    @Override
+    public void postRender(Graphics g) {
+        
+    }
+    
     @Override
     public void die() {
         int[] item = {0, 1};

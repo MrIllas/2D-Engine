@@ -37,7 +37,7 @@ public class Chest02 extends IndestructibleEntity{
         bounds.height = (int) (height - height / 2.2f);
         isInteractable = true;
         
-        this.chest = new Chest(handler);
+        this.chest = new Chest(handler, ""+this.name+" || "+this.id);
         //
         itemPool();
     }
@@ -70,6 +70,11 @@ public class Chest02 extends IndestructibleEntity{
         feedG(g);
         
         interactionToRender(g);
+    }
+    
+    @Override
+    public void postRender(Graphics g) {
+        
     }
 
     @Override

@@ -42,6 +42,7 @@ public class GameState extends State {
         
         uiManager = new UIManager(handler);
         
+        
         //World2
         world2EM = new EntityManager(handler, null);
         world2EM.setPlayer(baseEM.getPlayer());
@@ -58,14 +59,16 @@ public class GameState extends State {
         //World1
         world1EM = new EntityManager(handler, null);
         world1EM.setPlayer(baseEM.getPlayer());
-        world1EM.addEntity(new Ghost01(handler, 256, 96));  
+        //world1EM.addEntity(new Ghost01(handler, 256, 96));  
         world1EM.addEntity(new Box(handler, 288, 768));
         world1EM.addEntity(new Box(handler, 288 + 32, 768));
         world1EM.addEntity(new Box(handler, 384, 1056 - 32));
         world1EM.addEntity(new Ghost01(handler, 384 - 32, 1056));
-        world1EM.addEntity(new Chest01(handler, 30*32-16, 6*32));
+        world1EM.addEntity(new Chest01(handler, 30*32-16, 7*32));
+        world1EM.addEntity(new Chest01(handler, 20*32-16, 7*32));
         world1EM.addEntity(new TeleportTile(handler, 42*32, 14*32, "world2", 20*32, 18*32));
         world1 = new World(handler, "world1", "res/worlds/world1.wlvl", world1EM);
+        
         
         handler.setWorld(world1);
         
