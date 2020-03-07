@@ -3,6 +3,7 @@ package dev.aksarok.rpgGame;
 import dev.aksarok.rpgGame.gfx.GameCamera;
 import dev.aksarok.rpgGame.input.KeyManager;
 import dev.aksarok.rpgGame.input.MouseManager;
+import dev.aksarok.rpgGame.input.MouseWheelManager;
 import dev.aksarok.rpgGame.worlds.World;
 
 public class Handler {
@@ -24,6 +25,10 @@ public class Handler {
 
     public MouseManager getMouseManager() {
         return game.getMouseManager();
+    }
+    
+    public MouseWheelManager getMouseWheelManager(){
+        return game.getMouseWheelManager();
     }
 
     public int getWidth() {
@@ -48,5 +53,9 @@ public class Handler {
 
     public void setWorld(World world) {
         this.world = world;
+    }
+    
+    public void turnPause() {
+        Game.pause = !Game.pause;
     }
 }

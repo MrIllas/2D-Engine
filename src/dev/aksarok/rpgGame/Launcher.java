@@ -1,6 +1,5 @@
 package dev.aksarok.rpgGame;
 
-import dev.aksarok.rpgGame.display.Display;
 
 /**
  * Aquesta classe es la main de la nostre finestra

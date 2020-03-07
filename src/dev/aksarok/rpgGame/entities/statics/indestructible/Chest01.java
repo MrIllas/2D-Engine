@@ -8,7 +8,7 @@ package dev.aksarok.rpgGame.entities.statics.indestructible;
 import dev.aksarok.rpgGame.Handler;
 import dev.aksarok.rpgGame.gfx.Assets;
 import dev.aksarok.rpgGame.gfx.Text;
-import dev.aksarok.rpgGame.gui.inventory.Chest;
+import dev.aksarok.rpgGame.gui.inGame.Chest;
 import dev.aksarok.rpgGame.items.Item;
 import dev.aksarok.rpgGame.tiles.Tile;
 import java.awt.Color;

@@ -1,4 +1,4 @@
-package dev.aksarok.rpgGame.gui.inventory;
+package dev.aksarok.rpgGame.gui.inGame;
 
 import java.awt.Color;
 import java.awt.Graphics;

@@ -111,7 +111,7 @@ public class MenuState extends State {
         uiManager.render(g);
         
         //Version
-        Text.drawString(g, version, SCREEN_WIDTH - 170, SCREEN_HEIGHT - 7, true, Color.white, Assets.font15);
+        Text.drawString(g, version, SCREEN_WIDTH - 170, SCREEN_HEIGHT - 7, true, Color.green, Assets.font15);
         /*g.setColor(Color.RED);
 		g.fillRect(handler.getMouseManager().getMouseX() - 4, handler.getMouseManager().getMouseY() - 4, 8, 8);*/
     }

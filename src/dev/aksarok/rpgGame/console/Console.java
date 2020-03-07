@@ -5,9 +5,7 @@
  */
 package dev.aksarok.rpgGame.console;
 
-import dev.aksarok.rpgGame.Game;
 import dev.aksarok.rpgGame.Handler;
-import dev.aksarok.rpgGame.entities.creatures.Player;
 import dev.aksarok.rpgGame.gfx.Assets;
 import dev.aksarok.rpgGame.gfx.Text;
 import java.awt.Color;
@@ -15,7 +13,6 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JTextField;
 
 /**
  *
@@ -44,7 +41,7 @@ public class Console {
     
     //Text Colors
     protected static Color black = new Color(0, 0, 0);
-    protected static Color red = new Color(255, 80, 80);
+    public static Color red = new Color(255, 80, 80);
     protected static Color green = new Color(51, 204, 51);
     
     
@@ -57,15 +54,16 @@ public class Console {
     public void tick() {
         if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_F1)) {
             active = !active;
+            handler.turnPause();
         }
-        if(!active) {
+        if(!active) {  
             return;
         }
-        
+                
         //Input
         key = handler.getKeyManager().getKey();
         
-        if((int)key == 8){
+        if((int)key == 8){ //REMVOE
             if(!sentence.isEmpty()) {
                 sentence = removeLastChar(sentence);
             }
@@ -90,6 +88,8 @@ public class Console {
         if(!active) {
             return;
         }
+        
+        //INPUT
         background(g);
         Text.drawString(g, sentence, 10, 390, false, black, Assets.font20);
         
@@ -113,8 +113,13 @@ public class Console {
         return str.substring(0, str.length() - 1);
     }
     
-    protected static void addRegister(String sentence, Color colorCode) {
+    public static void addRegister(String sentence, Color colorCode) {
         register.add(register.size()-register.size(), sentence);
         registerColor.add(registerColor.size() - registerColor.size(), colorCode);
     }
+    
+//    public static void addRegister(String sentence, Color colorCode) {
+//        register.add(register.size()-register.size(), sentence);
+//        registerColor.add(registerColor.size() - registerColor.size(), colorCode);
+//    }
 }

@@ -2,18 +2,17 @@ package dev.aksarok.rpgGame;
 
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 
 import dev.aksarok.rpgGame.display.Display;
 import dev.aksarok.rpgGame.gfx.Assets;
 import dev.aksarok.rpgGame.gfx.GameCamera;
-import dev.aksarok.rpgGame.gfx.ImageLoader;
-import dev.aksarok.rpgGame.gfx.SpriteSheet;
 import dev.aksarok.rpgGame.console.Console;
 import dev.aksarok.rpgGame.input.KeyManager;
 import dev.aksarok.rpgGame.input.MouseManager;
+import dev.aksarok.rpgGame.input.MouseWheelManager;
 import dev.aksarok.rpgGame.states.CreditState;
 import dev.aksarok.rpgGame.states.GameState;
+import dev.aksarok.rpgGame.states.MapEditorState;
 import dev.aksarok.rpgGame.states.MenuState;
 import dev.aksarok.rpgGame.states.OptionsState;
 import dev.aksarok.rpgGame.states.State;
@@ -42,10 +41,12 @@ public class Game implements Runnable {
     public State menuState;
     public State creditState;
     public State optionsState;
+    public State mapEditorState;
 
     //INPUT
     private KeyManager keyManager;
     private MouseManager mouseManager;
+    private MouseWheelManager mouseWheelManager;
 
     //CAMERA
     private GameCamera gameCamera;
@@ -55,13 +56,17 @@ public class Game implements Runnable {
     
     //Console
     private Console console;
+    
+    
+    public static Boolean pause = false;
 
     public Game(String title, int width, int height) {
         this.width = width;
         this.height = height;
         this.title = title;
-        keyManager = new KeyManager();
-        mouseManager = new MouseManager();
+        this.keyManager = new KeyManager();
+        this.mouseManager = new MouseManager();
+        this.mouseWheelManager = new MouseWheelManager();
     }
 
     /**
@@ -74,6 +79,7 @@ public class Game implements Runnable {
         display.getFrame().addMouseMotionListener(mouseManager);
         display.getCanvas().addMouseListener(mouseManager);
         display.getCanvas().addMouseMotionListener(mouseManager);
+        display.getFrame().addMouseWheelListener(mouseWheelManager);
         Assets.init();
 
         handler = new Handler(this);
@@ -85,8 +91,10 @@ public class Game implements Runnable {
         menuState = new MenuState(handler);
         creditState = new CreditState(handler);
         optionsState = new OptionsState(handler);
+        mapEditorState = new MapEditorState(handler);
         
-        State.setState(menuState); //Initial State
+        //State.setState(menuState); //Initial State
+        State.setState(mapEditorState);
     }
 
     /**
@@ -96,7 +104,9 @@ public class Game implements Runnable {
         keyManager.tick();
 
         if (State.getState() != null) {
-            State.getState().tick();
+            if(!pause) {
+                State.getState().tick();
+            }
         }
         console.tick();
     }
@@ -173,6 +183,10 @@ public class Game implements Runnable {
         return mouseManager;
     }
 
+    public MouseWheelManager getMouseWheelManager() {
+        return mouseWheelManager;
+    }
+
     public GameCamera getGameCamera() {
         return gameCamera;
     }
@@ -212,5 +226,5 @@ public class Game implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
+    }   
 }

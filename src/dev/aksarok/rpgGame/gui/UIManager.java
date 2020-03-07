@@ -47,6 +47,12 @@ public class UIManager {
     public void removeObject(UIObject o) {
         objects.remove(o);
     }
+    
+    public void removeAll() {
+        for(int c = 0; c < objects.size(); c++) {
+            objects.remove(objects.get(c));
+        }
+    }
 
     public Handler getHandler() {
         return handler;

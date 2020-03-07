@@ -6,8 +6,8 @@ import java.util.Comparator;
 import java.util.Iterator;
 
 import dev.aksarok.rpgGame.Handler;
+import dev.aksarok.rpgGame.console.Console;
 import dev.aksarok.rpgGame.entities.creatures.Player;
-import dev.aksarok.rpgGame.entities.statics.indestructible.Chest01;
 
 public class EntityManager {
 
@@ -90,11 +90,27 @@ public class EntityManager {
             e.postRender(g);
         }
     }
-
-    public void addEntity(Entity e) {
+    
+     public void addEntity(Entity e) {
         e.setId(idCount);
-        entities.add(e);
+       entities.add(e);
         idCount++;
+    }
+    
+     /*IF the npc is add it return True, if not it returns false*/
+    public Boolean addNpc(int npcId) {
+        
+        Entity e = npcList(npcId);
+        
+        if(e == null) {
+            Console.addRegister("Error: Npc with npcId '"+npcId +"' doesn't exist.", Console.red);
+            return false;
+        }else {
+            e.setId(idCount);
+            entities.add(e);
+            idCount++;
+            return true;
+        }
     }
 
     //GETTERS AND SETTERS
@@ -126,5 +142,16 @@ public class EntityManager {
     public void setEntities(ArrayList<Entity> entities) {
         this.entities = entities;
     }
-
+    
+    
+    /***Npc list***/
+    
+    private Entity npcList(int npcId) {
+        switch(npcId) {
+            case 00001:
+                return new dev.aksarok.rpgGame.entities.creatures.Ghost01(handler, 0, 0);
+            default:
+                return null;
+        }
+    } 
 }

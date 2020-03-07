@@ -14,7 +14,7 @@ import java.awt.Rectangle;
  *
  * @author Robert
  */
-public class Interaction extends Thread{
+public class Interaction extends Thread {
     
     private Handler handler;
     private Player player;

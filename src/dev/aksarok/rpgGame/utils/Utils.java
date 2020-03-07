@@ -8,7 +8,9 @@ public class Utils {
 
     public static String loadFileAsString(String path) {
         StringBuilder builder = new StringBuilder();
-
+        if(path == null) {
+            return null;
+        }
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
             String line;

@@ -11,7 +11,7 @@ import dev.aksarok.rpgGame.entities.creatures.playerThreads.Interaction;
 import dev.aksarok.rpgGame.gfx.Animation;
 import dev.aksarok.rpgGame.gfx.Assets;
 import dev.aksarok.rpgGame.gui.FeedBack;
-import dev.aksarok.rpgGame.gui.inventory.Inventory;
+import dev.aksarok.rpgGame.gui.inGame.Inventory;
 import dev.aksarok.rpgGame.states.State;
 
 public class Player extends Creature {

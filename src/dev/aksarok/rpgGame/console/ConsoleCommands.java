@@ -6,7 +6,12 @@
 package dev.aksarok.rpgGame.console;
 
 import dev.aksarok.rpgGame.Handler;
+import dev.aksarok.rpgGame.entities.Entity;
+import dev.aksarok.rpgGame.entities.creatures.Ghost01;
 import dev.aksarok.rpgGame.gui.FeedBack;
+import dev.aksarok.rpgGame.states.GameState;
+import dev.aksarok.rpgGame.states.MapEditorState;
+import dev.aksarok.rpgGame.states.State;
 import dev.aksarok.rpgGame.utils.Utils;
 import java.awt.Color;
 import java.util.List;
@@ -21,7 +26,7 @@ public class ConsoleCommands {
     private static List<Color> registerColor;
     
     private final String[] error = {"Error 01: Missing data.",
-                                    "Error 02: Invalid data."};
+                                    "Error 02: Invalid data"};
     
     
     protected ConsoleCommands (Handler handler, List register, List registerColor) {
@@ -31,8 +36,11 @@ public class ConsoleCommands {
     }
     
     protected void enterCommand(String value) {
-        
         String[] com = value.split(" ");
+        
+        /**Command variable**/
+        float x, y;
+        int id;
         
         switch(com[0].toLowerCase()) {
             case "help":
@@ -47,9 +55,33 @@ public class ConsoleCommands {
                     Console.addRegister(error[0], Console.red);
                     break;
                 }
-                float x = Utils.parseFloat(com[1]);
-                float y = Utils.parseFloat(com[2]);
+                x = Utils.parseFloat(com[1]);
+                y = Utils.parseFloat(com[2]);
                 move(x, y);
+                break;
+            case "summon":
+                if(com.length != 4) {
+                    Console.addRegister(error[0], Console.red);
+                    break;
+                }
+                x = Utils.parseFloat(com[1]);
+                y = Utils.parseFloat(com[2]);
+                id = Utils.parseInt(com[3]);
+                
+                if(x == 0.0f) {
+                    Console.addRegister(error[1] + " on 'x' position", Color.red);
+                    break;
+                }
+                else if ( y == 0.0f) {
+                    Console.addRegister(error[1] + " on 'y' position", Color.red);
+                    break;
+                }
+                else if (id == 0) {
+                    Console.addRegister(error[1] + " on 'NpcId' position", Color.red);
+                    break;
+                }
+                
+                summon(x, y, id);
                 break;
             case "debug":
                 if(com.length != 2) {
@@ -68,6 +100,9 @@ public class ConsoleCommands {
             case "clean":
                 clean();
                 break;
+            case "mapeditor":
+                State.setState(handler.getGame().mapEditorState);
+                break;
             default:
                 none();
         }
@@ -79,11 +114,13 @@ public class ConsoleCommands {
         String s2 = "   move";
         String s3 = "   clean";
         String s4 = "   debug";
+        String s5 = "   summon";
         Console.addRegister(s0, Console.black);
         Console.addRegister(s1, Console.black);
         Console.addRegister(s2, Console.black);
         Console.addRegister(s3, Console.black);
         Console.addRegister(s4, Console.black);
+        Console.addRegister(s5, Console.black);
     }
     
     private void help(String value) {
@@ -98,8 +135,12 @@ public class ConsoleCommands {
                 s0 = "Cleans the command log.";
                 break;
             case "debug":
-                s0 = "Turns the debug mode on/off";
+                s0 = "Turns the debug mode on/off.";
                 s1 = "Ex: debug on";
+                break;
+            case "summon":
+                s0 = "Summons an npc at one position.";
+                s1 = "Ex: summon 'x' 'y' 'id'";
                 break;
             default:
                 s0 = "Write help 'command' to get info from that command.";
@@ -140,6 +181,21 @@ public class ConsoleCommands {
     private void clean() {
         register.clear();
         registerColor.clear();
+    }
+    
+    private void summon(float x, float y, int id) {
+        
+        x = (x * 32) - 32;
+        y = (y * 32) - 32;
+        
+        String s0 = "Npc summoned!";
+        Boolean aux = handler.getWorld().getEntityManager().addNpc(id);
+        
+        if(aux) {
+            handler.getWorld().getEntityManager().getEntitieByIndex(handler.getWorld().getEntityManager().getEntities().size() - 1).setX(x);
+            handler.getWorld().getEntityManager().getEntitieByIndex(handler.getWorld().getEntityManager().getEntities().size() - 1).setY(y);
+            Console.addRegister(s0, Console.green);
+        }
     }
     
     private void none() {

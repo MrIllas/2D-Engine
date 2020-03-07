@@ -64,9 +64,17 @@ public class Tile {
     }
 
     public void tick() {
+        
+    }
+    
+    public void render(Graphics g, int x, int y, int tileWidth, int tileHeight) {
+        if (background != null) {
+            g.drawImage(background, x, y, tileWidth, tileHeight, null);
+        }
+        g.drawImage(texture, x, y, tileWidth, tileHeight, null);
 
     }
-
+    
     public void render(Graphics g, int x, int y) {
         if (background != null) {
             g.drawImage(background, x, y, TILEWIDTH, TILEHEIGHT, null);
